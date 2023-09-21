@@ -92,6 +92,41 @@ endif::backend-html5[]
 
 == 2023-09-21
 
+image::jakartaee-vs-microprofile.png[]
+
+=== HÜ
+
+* Auschecken des microprojects aus classroom
+* Erstellen des CLDs in plantuml auf Asciidoc - Seite
+
+.Variante 1 mit include
+[plantuml,xy]
+----
+include::plantuml/cld.puml[]
+----
+
+.Variante 2
+[plantuml,xyz]
+----
+@startuml
+
+class Person {
+- vorname: String
+- nachname: String
+}
+
+class Hobby {
+- bezeichnung: String
+}
 
 
+Person "1" <-- "*" Hobby : > übt aus
+
+@enduml
+----
+
+
+IMPORTANT: Java 20 muss korrekt installiert sein
+
+TIP: Installieren Sie sich nach Möglichkeit eine eigene Linux Partition
 
