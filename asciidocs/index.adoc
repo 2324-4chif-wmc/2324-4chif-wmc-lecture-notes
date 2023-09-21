@@ -1,4 +1,4 @@
-= 23/24 4chif wmc - Lecture Notes
+= 23/24 - 4chif - wmc - Lecture Notes
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
 :experimental:
@@ -16,8 +16,81 @@ endif::backend-html5[]
 
 === microprofile
 
-https://htl-leonding-college.github.io/quarkus-lecture-notes/
+* https://htl-leonding-college.github.io/quarkus-lecture-notes/
 
+
+=== Mikroprojekt
+
+* max. 3-5 Tabellen
+* mit plantuml und asciidoctor dokumentieren
+* muss nicht alle user stories enthalten nur ein paar. Im Vordergrund steht das Üben der Technologien
+
+|===
+|Name |Thema
+
+
+|Baitura Fabian
+|Büchererei
+
+|Bieregger David
+|Friedhofsverwaltung
+
+|Brkic Ilijas
+|Restaurant (Tische reservieren)
+
+|Davila Mendez Francisco
+|Reisebüro
+
+|Dorn-Fussenegger Felix
+|Gärtnerei
+
+|Ferecean Yanis-Florian
+|Tierarztpraxis
+
+|Fischlmayr Daniel
+|Eisenbahn (Fahrplan)
+
+|Grundner Noah
+|Fluggesellschaft
+
+|Haas Felix
+|Spedition
+
+|Isakovic Arim
+|Facility-Manager (Hausmeister)
+
+|Kasieczka Lorenz
+|Autovermietung
+
+|Krenmayr Paul
+|Hotel
+
+|Leeb Leon
+|Bank
+
+|Nell Paul
+|Radfahrverleih
+
+|Pamminger Jonas
+|Flughafen
+
+|Saliu Arsim
+|Nachhilfeverwaltung
+
+|Schönbaß Jonas
+|Fahrschule
+
+|Stana Andrei-Lucian
+|Immobilienverwaltung
+
+|Trinkl Niklas
+|Tennisverein
+
+|===
+
+
+
+== 2023-09-21
 
 
 
