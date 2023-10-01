@@ -130,3 +130,21 @@ IMPORTANT: Java 20 muss korrekt installiert sein
 
 TIP: Installieren Sie sich nach Möglichkeit eine eigene Linux Partition
 
+== 2023-09-28
+
+.Wichtige Programme zum Software-Entwickeln unter Linux
+[source]
+----
+sudo apt install build-essential
+----
+
+
+.JAVA_HOME in `.bashrc` anfügen
+[source,bash]
+----
+export JAVA_HOME=$(/usr/libexec/java_home)
+----
+
+=== ConfigProperty
+
+* https://quarkus.io/guides/config-reference
