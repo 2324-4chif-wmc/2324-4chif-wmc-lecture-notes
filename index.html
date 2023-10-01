@@ -563,7 +563,11 @@ pre.rouge .gs {
 </li>
 <li><a href="#_2023_09_21">2. 2023-09-21</a>
 <ul class="sectlevel2">
-<li><a href="#_hü">2.1. HÜ</a></li>
+<li><a href="#_organisatorisches">2.1. Organisatorisches</a></li>
+<li><a href="#_jakarta_ee_vs_microprofile">2.2. Jakarta EE vs Microprofile</a></li>
+<li><a href="#_rest_apis_und_crud_eine_einführung">2.3. REST-APIs und CRUD: Eine Einführung</a></li>
+<li><a href="#_java_im_internet_servlets">2.4. Java im Internet: Servlets</a></li>
+<li><a href="#_hü">2.5. HÜ</a></li>
 </ul>
 </li>
 <li><a href="#_2023_09_28">3. 2023-09-28</a>
@@ -708,13 +712,166 @@ pre.rouge .gs {
 <div class="sect1">
 <h2 id="_2023_09_21"><a class="anchor" href="#_2023_09_21"></a>2. 2023-09-21</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_organisatorisches"><a class="anchor" href="#_organisatorisches"></a>2.1. Organisatorisches</h3>
+<div class="ulist">
+<div class="title">Moodle</div>
+<ul>
+<li>
+<p><a href="https://edufs.edu.htl-leonding.ac.at/moodle/course/view.php?id=4112">WMC 4chif stütz 2324</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jakarta_ee_vs_microprofile"><a class="anchor" href="#_jakarta_ee_vs_microprofile"></a>2.2. Jakarta EE vs Microprofile</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/jakartaee-vs-microprofile.png" alt="jakartaee vs microprofile">
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Jakarta EE</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Microprofile</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Umfassende Plattform für die Entwicklung von Unternehmensanwendungen in Java.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ist eine leichtgewichtige Plattform für Microservices und Cloud-native Anwendungen in Java.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Es umfasst einen Application Server (Webserver), auf dem Java-Anwendungen in Form von .war-Dateien gehostet werden können.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MicroProfile-Anwendungen können entweder als Jar-Dateien oder native Binaries ausgeführt werden.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jakarta EE-Anwendungen verwenden Jakarta EE Libraries.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Es basiert auf Java und kann Java-Code verwenden, erfordert jedoch auch Jakarta EE Libraries, um auf bestimmte Funktionen zuzugreifen.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Es erfordert einen dedizierten Server für die Ausführung.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hauptvorteil besteht darin, dass es keinen dedizierten Server erfordert und eigenständig ausführbar ist.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sind in der Regel schwerer und ressourcenintensiver als MicroProfile-Anwendungen.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verbraucht wenig Ressourcen und bietet eine hohe Leistung, wodurch es ideal für die Ausführung in der Cloud ist.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Ein <a href="https://en.wikipedia.org/wiki/WAR_(file_format)">.war-Datei</a> (Web Application Archive) ist ein Dateiformat in der Java-Softwareentwicklung, das verwendet wird, um eine vollständige Webanwendung, einschließlich aller erforderlichen Ressourcen wie HTML-Seiten, Java-Klassen und Bibliotheken, zu verpacken, um sie auf einem Java Application Server bereitzustellen.</p>
+</div>
+<div class="paragraph">
+<p>Eine <a href="https://en.wikipedia.org/wiki/JAR_(file_format)">.jar-Datei</a> (Java Archive) ist ein Archivformat in Java, das verwendet wird, um Java-Klassen, Ressourcen und Bibliotheken in einer einzelnen komprimierten Datei zu speichern, wodurch die Verteilung von Java-Anwendungen und -Bibliotheken erleichtert wird.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Jakarta EE hieß früher Java EE. Der Name wurde geändert, um zu zeigen, dass es jetzt von der Jakarta EE-Community entwickelt wird, nachdem es früher von Oracle betreut wurde.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Wir werden Microprofile lernen/verwenden.
+</td>
+</tr>
+</table>
+</div>
+</div>
 <div class="sect2">
-<h3 id="_hü"><a class="anchor" href="#_hü"></a>2.1. HÜ</h3>
+<h3 id="_rest_apis_und_crud_eine_einführung"><a class="anchor" href="#_rest_apis_und_crud_eine_einführung"></a>2.3. REST-APIs und CRUD: Eine Einführung</h3>
+<div class="sect3">
+<h4 id="_rest_methoden_get_put_post_patch_und_delete"><a class="anchor" href="#_rest_methoden_get_put_post_patch_und_delete"></a>2.3.1. REST-Methoden: GET, PUT, POST, PATCH und DELETE</h4>
+<div class="paragraph">
+<p>REST (Representational State Transfer) ist ein Architekturstil  für die Kommunikation zwischen Systemen über das Internet. Es verwendet verschiedene HTTP-Methoden, um auf Ressourcen zuzugreifen und mit ihnen zu interagieren:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>GET:</em> Dient dem Abrufen von Daten.</p>
+</li>
+<li>
+<p><em>PUT:</em> Aktualisiert oder erstellt eine Ressource.</p>
+</li>
+<li>
+<p><em>POST:</em> Erstellt eine neue Ressource.</p>
+</li>
+<li>
+<p><em>PATCH:</em> Aktualisiert eine Teilmenge einer Ressource.</p>
+</li>
+<li>
+<p><em>DELETE:</em> Löscht eine Ressource.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_vergleich_mit_crud_operationen"><a class="anchor" href="#_vergleich_mit_crud_operationen"></a>2.3.2. Vergleich mit CRUD-Operationen</h4>
+<div class="paragraph">
+<p>REST-Methoden können mit den grundlegenden CRUD-Operationen (Create, Read, Update, Delete) in Verbindung gebracht werden:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>GET</em> entspricht dem Lesen (<strong>Read</strong>) von Daten.</p>
+</li>
+<li>
+<p><em>PUT</em> entspricht dem Aktualisieren (<strong>Update</strong>) von Daten.</p>
+</li>
+<li>
+<p><em>POST</em> entspricht dem Erstellen (<strong>Create</strong>) neuer Daten.</p>
+</li>
+<li>
+<p><em>PATCH</em> entspricht dem Aktualisieren (<strong>Update</strong>) von Teilen von Daten.</p>
+</li>
+<li>
+<p><em>DELETE</em> entspricht dem Löschen (<strong>Delete</strong>) von Daten.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>REST erweitert diese CRUD-Operationen und ermöglicht eine flexiblere Kommunikation zwischen Systemen.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_java_im_internet_servlets"><a class="anchor" href="#_java_im_internet_servlets"></a>2.4. Java im Internet: Servlets</h3>
+<div class="paragraph">
+<p>Java wird häufig im Internet für die Entwicklung von Webanwendungen verwendet, und eine gängige Methode hierfür sind Servlets.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://de.wikipedia.org/wiki/Jakarta_Servlet">Servlets</a> sind Java-Klassen, deren Instanzen innerhalb eines Webservers Anfragen von Clients entgegennehmen und beantworten. Der Inhalt der Antworten kann dabei dynamisch, also im Moment der Anfrage, erstellt werden und muss nicht bereits statisch (z.B. als HTML-Seite) für den Webserver verfügbar sein.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Websiten sind das Internet für Menschen, während REST das Internet für Maschinen ist.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hü"><a class="anchor" href="#_hü"></a>2.5. HÜ</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -794,7 +951,7 @@ Installieren Sie sich nach Möglichkeit eine eigene Linux Partition
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-01 08:56:16 UTC
+Last updated 2023-10-01 08:57:32 UTC
 </div>
 </div>
 </body>
