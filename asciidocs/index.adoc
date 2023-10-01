@@ -92,7 +92,76 @@ endif::backend-html5[]
 
 == 2023-09-21
 
+=== Organisatorisches
+
+.Moodle
+* link:https://edufs.edu.htl-leonding.ac.at/moodle/course/view.php?id=4112[WMC 4chif stütz 2324]
+
+=== Jakarta EE vs Microprofile
+
 image::jakartaee-vs-microprofile.png[]
+
+
+|===
+|*Jakarta EE* |*Microprofile*
+|Umfassende Plattform für die Entwicklung von Unternehmensanwendungen in Java.
+|Ist eine leichtgewichtige Plattform für Microservices und Cloud-native Anwendungen in Java.
+
+|Es umfasst einen Application Server (Webserver), auf dem Java-Anwendungen in Form von .war-Dateien gehostet werden können.
+|MicroProfile-Anwendungen können entweder als Jar-Dateien oder native Binaries ausgeführt werden.
+
+
+| Jakarta EE-Anwendungen verwenden Jakarta EE Libraries.
+|Es basiert auf Java und kann Java-Code verwenden, erfordert jedoch auch Jakarta EE Libraries, um auf bestimmte Funktionen zuzugreifen.
+
+| Es erfordert einen dedizierten Server für die Ausführung.
+| Hauptvorteil besteht darin, dass es keinen dedizierten Server erfordert und eigenständig ausführbar ist.
+
+| Sind in der Regel schwerer und ressourcenintensiver als MicroProfile-Anwendungen.
+| Verbraucht wenig Ressourcen und bietet eine hohe Leistung, wodurch es ideal für die Ausführung in der Cloud ist.
+
+|===
+
+Ein link:https://en.wikipedia.org/wiki/WAR_(file_format)[.war-Datei] (Web Application Archive) ist ein Dateiformat in der Java-Softwareentwicklung, das verwendet wird, um eine vollständige Webanwendung, einschließlich aller erforderlichen Ressourcen wie HTML-Seiten, Java-Klassen und Bibliotheken, zu verpacken, um sie auf einem Java Application Server bereitzustellen.
+
+Eine link:https://en.wikipedia.org/wiki/JAR_(file_format)[.jar-Datei] (Java Archive) ist ein Archivformat in Java, das verwendet wird, um Java-Klassen, Ressourcen und Bibliotheken in einer einzelnen komprimierten Datei zu speichern, wodurch die Verteilung von Java-Anwendungen und -Bibliotheken erleichtert wird.
+
+NOTE: Jakarta EE hieß früher Java EE. Der Name wurde geändert, um zu zeigen, dass es jetzt von der Jakarta EE-Community entwickelt wird, nachdem es früher von Oracle betreut wurde.
+
+IMPORTANT: Wir werden Microprofile lernen/verwenden.
+
+
+=== REST-APIs und CRUD: Eine Einführung
+
+==== REST-Methoden: GET, PUT, POST, PATCH und DELETE
+
+REST (Representational State Transfer) ist ein Architekturstil  für die Kommunikation zwischen Systemen über das Internet. Es verwendet verschiedene HTTP-Methoden, um auf Ressourcen zuzugreifen und mit ihnen zu interagieren:
+
+* _GET:_ Dient dem Abrufen von Daten.
+* _PUT:_ Aktualisiert oder erstellt eine Ressource.
+* _POST:_ Erstellt eine neue Ressource.
+* _PATCH:_ Aktualisiert eine Teilmenge einer Ressource.
+* _DELETE:_ Löscht eine Ressource.
+
+==== Vergleich mit CRUD-Operationen
+
+REST-Methoden können mit den grundlegenden CRUD-Operationen (Create, Read, Update, Delete) in Verbindung gebracht werden:
+
+* _GET_ entspricht dem Lesen (*Read*) von Daten.
+* _PUT_ entspricht dem Aktualisieren (*Update*) von Daten.
+* _POST_ entspricht dem Erstellen (*Create*) neuer Daten.
+* _PATCH_ entspricht dem Aktualisieren (*Update*) von Teilen von Daten.
+* _DELETE_ entspricht dem Löschen (*Delete*) von Daten.
+
+REST erweitert diese CRUD-Operationen und ermöglicht eine flexiblere Kommunikation zwischen Systemen.
+
+=== Java im Internet: Servlets
+
+Java wird häufig im Internet für die Entwicklung von Webanwendungen verwendet, und eine gängige Methode hierfür sind Servlets.
+
+link:https://de.wikipedia.org/wiki/Jakarta_Servlet[Servlets] sind Java-Klassen, deren Instanzen innerhalb eines Webservers Anfragen von Clients entgegennehmen und beantworten. Der Inhalt der Antworten kann dabei dynamisch, also im Moment der Anfrage, erstellt werden und muss nicht bereits statisch (z.B. als HTML-Seite) für den Webserver verfügbar sein.
+
+TIP: Websiten sind das Internet für Menschen, während REST das Internet für Maschinen ist.
 
 === HÜ
 
