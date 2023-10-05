@@ -223,8 +223,10 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 == 2023-10-02
 
 === JVM
-Die Java Virtual Machine interpretiert den kompilierten Code in Bytecode, was sie sehr langsam macht.
+Die Standard-JVM (Java Virtual Machine) interpretiert den kompilierten Code in Bytecode, was sie sehr langsam macht.
 Wenn eine Methode oder ein Stück Code häufig angefragt wird, wird dieser nicht mehr interpretiert, sondern maschinenübersetzt, wodurch er schneller ausgeführt wird.
+Das heißt Just In Time Compilation (JIT).
+Man kann aber auch native-executables erzeugen, die von vorne herein komplett auf eine Maschinenarchitektur kompiliert werden.
 
 === Caching
 - Client-seitiges Rendering ->
@@ -234,10 +236,18 @@ Dabei wird das Frontend, das im Cache gespeichert ist, über die GUI vom Backend
 Die Benutzeroberfläche wird auf dem Server vorbereitet und als HTML an den Client gesendet. Zum Beispiel in PHP.
 
 === Browser
-HTTP erlaubt maximal 2 gleichzeitige Verbindungen, während Chrome ein Limit von 6 Verbindungen pro Remote-Seite hat. Dies kann zu Problemen führen!
+HTTP1.1 erlaubt maximal 2 gleichzeitige Verbindungen pro URI, während Chrome ein Limit von 6 Verbindungen pro Remote-Seite hat. Dies kann zu Problemen führen!
 
 === Lösung
-HTTP-Header: Nach der ersten Anfrage erhält man ein Ablaufdatum (Expires). Bei Überschreitung dieses Datums wird eine neue GET-Anfrage an den Server gesendet (Antwort: wieder ein Response mit Expires). Dies ermöglicht es, Daten beim erneuten Laden der Seite nicht vom Server, sondern aus dem Cache abzurufen, solange das Expires gültig ist.
+HTTP2 Multiplexing
+Caching
 
-=== E-Tag
-Beim ersten Request erhält der Client eine JSON und einen Hash. Bei einem Reload sendet er den erhaltenen Hash an den Server zurück, dieser hasht seine Daten und vergleicht beide Hashes. Sollten Änderungen vorliegen, sendet der Server die neue JSON und einen neuen Hash; andernfalls erfolgt eine 304-Warnung.
+==== Expires
+Nach der ersten Anfrage erhält man ein Ablaufdatum (Expires) über ein Header-Feld in der Response.
+Erst bei Überschreitung dieses Datums wird vom Client eine neue GET-Anfrage an den Server gesendet (Antwort: wieder ein Response mit Expires).
+Dies ermöglicht es, Daten beim erneuten Laden der Seite nicht vom Server, sondern aus dem Cache abzurufen, solange das Expires gültig ist.
+
+==== E-Tag Hashing
+Beim ersten Request erhält der Client eine JSON und einen Hash.
+Bei einem Reload sendet er den erhaltenen Hash an den Server zurück, dieser hasht die Daten der potentiellen Antwort erneut und vergleicht beide Hashes.
+Sollten Änderungen vorliegen, sendet der Server die neue JSON und einen neuen Hash; andernfalls erfolgt ein 304-Status (not modified) und der Client holt dann die Daten aus seinem Cache.
