@@ -581,6 +581,7 @@ pre.rouge .gs {
 <li><a href="#_caching">4.2. Caching</a></li>
 <li><a href="#_browser">4.3. Browser</a></li>
 <li><a href="#_lösung">4.4. Lösung</a></li>
+<li><a href="#_e_tag">4.5. E-Tag</a></li>
 </ul>
 </li>
 </ul>
@@ -962,10 +963,8 @@ Installieren Sie sich nach Möglichkeit eine eigene Linux Partition
 <div class="sect2">
 <h3 id="_jvm"><a class="anchor" href="#_jvm"></a>4.1. JVM</h3>
 <div class="paragraph">
-<p>Die Standard-JVM (Java Virtual Machine) interpretiert den kompilierten Code in Bytecode, was sie sehr langsam macht.
-Wenn eine Methode oder ein Stück Code häufig angefragt wird, wird dieser nicht mehr interpretiert, sondern maschinenübersetzt, wodurch er schneller ausgeführt wird.
-Das heißt Just In Time Compilation (JIT).
-Man kann aber auch native-executables erzeugen, die von vorne herein komplett auf eine Maschinenarchitektur kompiliert werden.</p>
+<p>Die Java Virtual Machine interpretiert den kompilierten Code in Bytecode, was sie sehr langsam macht.
+Wenn eine Methode oder ein Stück Code häufig angefragt wird, wird dieser nicht mehr interpretiert, sondern maschinenübersetzt, wodurch er schneller ausgeführt wird.</p>
 </div>
 </div>
 <div class="sect2">
@@ -987,30 +986,19 @@ Die Benutzeroberfläche wird auf dem Server vorbereitet und als HTML an den Clie
 <div class="sect2">
 <h3 id="_browser"><a class="anchor" href="#_browser"></a>4.3. Browser</h3>
 <div class="paragraph">
-<p>HTTP1.1 erlaubt maximal 2 gleichzeitige Verbindungen pro URI, während Chrome ein Limit von 6 Verbindungen pro Remote-Seite hat. Dies kann zu Problemen führen!</p>
+<p>HTTP erlaubt maximal 2 gleichzeitige Verbindungen, während Chrome ein Limit von 6 Verbindungen pro Remote-Seite hat. Dies kann zu Problemen führen!</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_lösung"><a class="anchor" href="#_lösung"></a>4.4. Lösung</h3>
 <div class="paragraph">
-<p>HTTP2 Multiplexing
-Caching</p>
+<p>HTTP-Header: Nach der ersten Anfrage erhält man ein Ablaufdatum (Expires). Bei Überschreitung dieses Datums wird eine neue GET-Anfrage an den Server gesendet (Antwort: wieder ein Response mit Expires). Dies ermöglicht es, Daten beim erneuten Laden der Seite nicht vom Server, sondern aus dem Cache abzurufen, solange das Expires gültig ist.</p>
 </div>
-<div class="sect3">
-<h4 id="_expires"><a class="anchor" href="#_expires"></a>4.4.1. Expires</h4>
+</div>
+<div class="sect2">
+<h3 id="_e_tag"><a class="anchor" href="#_e_tag"></a>4.5. E-Tag</h3>
 <div class="paragraph">
-<p>Nach der ersten Anfrage erhält man ein Ablaufdatum (Expires) über ein Header-Feld in der Response.
-Erst bei Überschreitung dieses Datums wird vom Client eine neue GET-Anfrage an den Server gesendet (Antwort: wieder ein Response mit Expires).
-Dies ermöglicht es, Daten beim erneuten Laden der Seite nicht vom Server, sondern aus dem Cache abzurufen, solange das Expires gültig ist.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_e_tag_hashing"><a class="anchor" href="#_e_tag_hashing"></a>4.4.2. E-Tag Hashing</h4>
-<div class="paragraph">
-<p>Beim ersten Request erhält der Client eine JSON und einen Hash.
-Bei einem Reload sendet er den erhaltenen Hash an den Server zurück, dieser hasht die Daten der potentiellen Antwort erneut und vergleicht beide Hashes.
-Sollten Änderungen vorliegen, sendet der Server die neue JSON und einen neuen Hash; andernfalls erfolgt ein 304-Status (not modified) und der Client holt dann die Daten aus seinem Cache.</p>
-</div>
+<p>Beim ersten Request erhält der Client eine JSON und einen Hash. Bei einem Reload sendet er den erhaltenen Hash an den Server zurück, dieser hasht seine Daten und vergleicht beide Hashes. Sollten Änderungen vorliegen, sendet der Server die neue JSON und einen neuen Hash; andernfalls erfolgt eine 304-Warnung.</p>
 </div>
 </div>
 </div>
@@ -1018,7 +1006,7 @@ Sollten Änderungen vorliegen, sendet der Server die neue JSON und einen neuen H
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-05 09:45:23 UTC
+Last updated 2023-10-05 10:47:05 UTC
 </div>
 </div>
 </body>
