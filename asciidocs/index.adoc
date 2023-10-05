@@ -217,3 +217,27 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 === ConfigProperty
 
 * https://quarkus.io/guides/config-reference
+
+
+
+== 2023-10-02
+
+=== JVM
+Die Java Virtual Machine interpretiert den kompilierten Code in Bytecode, was sie sehr langsam macht.
+Wenn eine Methode oder ein Stück Code häufig angefragt wird, wird dieser nicht mehr interpretiert, sondern maschinenübersetzt, wodurch er schneller ausgeführt wird.
+
+=== Caching
+- Client-seitiges Rendering ->
+Die Benutzeroberfläche wird größtenteils im Browser des Benutzers gerendert.
+Dabei wird das Frontend, das im Cache gespeichert ist, über die GUI vom Backend-Server abgerufen, wenn weitere Anfragen gestellt werden.
+- Serverseitiges Rendering:
+Die Benutzeroberfläche wird auf dem Server vorbereitet und als HTML an den Client gesendet. Zum Beispiel in PHP.
+
+=== Browser
+HTTP erlaubt maximal 2 gleichzeitige Verbindungen, während Chrome ein Limit von 6 Verbindungen pro Remote-Seite hat. Dies kann zu Problemen führen!
+
+=== Lösung
+HTTP-Header: Nach der ersten Anfrage erhält man ein Ablaufdatum (Expires). Bei Überschreitung dieses Datums wird eine neue GET-Anfrage an den Server gesendet (Antwort: wieder ein Response mit Expires). Dies ermöglicht es, Daten beim erneuten Laden der Seite nicht vom Server, sondern aus dem Cache abzurufen, solange das Expires gültig ist.
+
+=== E-Tag
+Beim ersten Request erhält der Client eine JSON und einen Hash. Bei einem Reload sendet er den erhaltenen Hash an den Server zurück, dieser hasht seine Daten und vergleicht beide Hashes. Sollten Änderungen vorliegen, sendet der Server die neue JSON und einen neuen Hash; andernfalls erfolgt eine 304-Warnung.
