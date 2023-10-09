@@ -241,3 +241,122 @@ HTTP-Header: Nach der ersten Anfrage erhält man ein Ablaufdatum (Expires). Bei 
 
 === E-Tag
 Beim ersten Request erhält der Client eine JSON und einen Hash. Bei einem Reload sendet er den erhaltenen Hash an den Server zurück, dieser hasht seine Daten und vergleicht beide Hashes. Sollten Änderungen vorliegen, sendet der Server die neue JSON und einen neuen Hash; andernfalls erfolgt eine 304-Warnung.
+
+== 2023-10-05
+
+=== Bsp Gärtnerei
+
+* Als Mitarbeiter der Personalabteilung möchte ich die Arbeitszeiten der einzelnen Mitarbeiter erfassen, um das monatliche Gehalt berechnen zu können.
+
+TIP: In einem ersten Schritt erstelle ich ein Datenmodell ohne technische Infos zB Id's
+
+[plantuml,cld-1]
+----
+@startuml
+class Person {
+  -firstName: String
+  -lastName: String
+}
+
+class Abteilung {
+  -name: String
+}
+
+class Arbeitszeit {
+  -von: LocalDateTime
+  -bis: LocalDateTime
+  -person: Person
+  -abteilung: Abteilung
+}
+
+Person "1" <-right- "*" Arbeitszeit : > arbeitet
+Abteilung "1" <-left- "*" Arbeitszeit: > in
+
+@enduml
+----
+
+.Beziehungen zwischen Klassen/Tabellen
+[%autowidth]
+|===
+|Beziehungen |Beschreibung |Beispiel
+
+|Assoziation
+|benutzt-Beziehung
+|Hansi hat einen Hund Flocki
+
+|Komposition
+|besteht-aus Beziehung; Merkmal: Objekt wird zerstört bei Zerlegung
+|Haus besteht aus Etagen
+
+|Aggregation
+|besteht-aus Beziehung; Merkmal: Objekt wird bei Zerlegung *NICHT* zerstört
+|Auto hat Autoreifen
+
+|Vererbung
+|Vererbungsbeziehung
+|Ein Hund erbt vom Säugetier
+|===
+
+* Was sind Stamm- und Bewegungsdaten:
+** auch Master-Data und Transaction-Data genannt
+** Stammdaten sind auch mehrere Perioden gültig zB Personen, Produkte, Kategorien, ...
+** Bewegungsdaten sind meist nur eine Periode (zB Geschäftsjahr) gültig
+*** zB Rechnungen, Bestellungen
+*** man erkennt Bewegungsdaten an einem Datum zB Rechnungsdatum, Bestelldatum
+*** Das Geburtsdatum bei Personen zählt nicht
+*** Bewegungsdaten sind meist zwischen Stammdaten angesiedelt
+
+Im obigen Beispiel sind Person und Abteilung die Stammdaten, die Arbeitszeit ist die Klasse der Bewegungsdaten.
+
+
+
+
+
+== 2023-10-09
+
+=== DOM - Domain Object Model
+
+[plantuml,assoziationen,svg]
+----
+@startuml
+!theme plain
+
+class Person {
+  id: Long
+  name: String
+}
+
+class Hobby {
+  bezeichnung: String
+}
+
+@enduml
+----
+
+[source,java]
+----
+public class Person {
+    int id;
+}
+
+public static void main(...) {
+    Person p = new Person();
+    System.out.println(p.getId());
+    // 0
+}
+
+----
+
+[source,java]
+----
+public class Person {
+    Integer id;
+}
+
+public static void main(...) {
+    Person p = new Person();
+    System.out.println(p.getId());
+    // null
+}
+
+----
