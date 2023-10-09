@@ -584,6 +584,16 @@ pre.rouge .gs {
 <li><a href="#_e_tag">4.5. E-Tag</a></li>
 </ul>
 </li>
+<li><a href="#_2023_10_05">5. 2023-10-05</a>
+<ul class="sectlevel2">
+<li><a href="#_bsp_gärtnerei">5.1. Bsp Gärtnerei</a></li>
+</ul>
+</li>
+<li><a href="#_2023_10_09">6. 2023-10-09</a>
+<ul class="sectlevel2">
+<li><a href="#_dom_domain_object_model">6.1. DOM - Domain Object Model</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1003,10 +1013,157 @@ Die Benutzeroberfläche wird auf dem Server vorbereitet und als HTML an den Clie
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2023_10_05"><a class="anchor" href="#_2023_10_05"></a>5. 2023-10-05</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_bsp_gärtnerei"><a class="anchor" href="#_bsp_gärtnerei"></a>5.1. Bsp Gärtnerei</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Als Mitarbeiter der Personalabteilung möchte ich die Arbeitszeiten der einzelnen Mitarbeiter erfassen, um das monatliche Gehalt berechnen zu können.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In einem ersten Schritt erstelle ich ein Datenmodell ohne technische Infos zB Id&#8217;s
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/cld-1.png" alt="cld 1" width="590" height="126">
+</div>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 1. Beziehungen zwischen Klassen/Tabellen</caption>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Beziehungen</th>
+<th class="tableblock halign-left valign-top">Beschreibung</th>
+<th class="tableblock halign-left valign-top">Beispiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assoziation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">benutzt-Beziehung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hansi hat einen Hund Flocki</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Komposition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">besteht-aus Beziehung; Merkmal: Objekt wird zerstört bei Zerlegung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Haus besteht aus Etagen</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aggregation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">besteht-aus Beziehung; Merkmal: Objekt wird bei Zerlegung <strong>NICHT</strong> zerstört</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Auto hat Autoreifen</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vererbung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vererbungsbeziehung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ein Hund erbt vom Säugetier</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>Was sind Stamm- und Bewegungsdaten:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>auch Master-Data und Transaction-Data genannt</p>
+</li>
+<li>
+<p>Stammdaten sind auch mehrere Perioden gültig zB Personen, Produkte, Kategorien, &#8230;&#8203;</p>
+</li>
+<li>
+<p>Bewegungsdaten sind meist nur eine Periode (zB Geschäftsjahr) gültig</p>
+<div class="ulist">
+<ul>
+<li>
+<p>zB Rechnungen, Bestellungen</p>
+</li>
+<li>
+<p>man erkennt Bewegungsdaten an einem Datum zB Rechnungsdatum, Bestelldatum</p>
+</li>
+<li>
+<p>Das Geburtsdatum bei Personen zählt nicht</p>
+</li>
+<li>
+<p>Bewegungsdaten sind meist zwischen Stammdaten angesiedelt</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Im obigen Beispiel sind Person und Abteilung die Stammdaten, die Arbeitszeit ist die Klasse der Bewegungsdaten.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2023_10_09"><a class="anchor" href="#_2023_10_09"></a>6. 2023-10-09</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dom_domain_object_model"><a class="anchor" href="#_dom_domain_object_model"></a>6.1. DOM - Domain Object Model</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/assoziationen.svg" alt="assoziationen" width="306" height="95">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(...)</span> <span class="o">{</span>
+    <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="c1">// 0</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="nc">Integer</span> <span class="n">id</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(...)</span> <span class="o">{</span>
+    <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+    <span class="c1">// null</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-05 10:47:05 UTC
+Last updated 2023-10-09 09:22:10 UTC
 </div>
 </div>
 </body>
