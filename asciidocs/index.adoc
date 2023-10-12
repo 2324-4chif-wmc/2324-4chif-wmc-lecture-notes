@@ -324,14 +324,29 @@ Im obigen Beispiel sind Person und Abteilung die Stammdaten, die Arbeitszeit ist
 class Person {
   id: Long
   name: String
+  hobby: Hobby
 }
 
 class Hobby {
   bezeichnung: String
+  'persons: List<Person>
 }
+
+Person --> Hobby
 
 @enduml
 ----
+
+* der Pfeil bei der Beziehung stellt eine gerichtete Assoziation dar, dh
+** wenn wir uns "in" einem Person - Objekt befinden können wir über hobby auf das zugehörige Hobby zugreifen, zB
++
+[source,java]
+----
+Hobby h = franzi.getHobby();
+----
+** Umgekehrt ist das nicht möglich. Bin ich "in" einem Hobby Objekt, habe ich keinen Zugriff auf alle Personen die diese Hobby ausüben
+** Man müsste zuerst eine SQL-Query absetzen, um eine Liste aller Personen zu erhalten, die dieses Hobby ausüben
+
 
 [source,java]
 ----
@@ -360,3 +375,9 @@ public static void main(...) {
 }
 
 ----
+
+
+=== Übung
+
+* Verbesserung Datenmodell
+* https://www.youtube.com/playlist?list=PLy7NrYWoggjziYQIDorlXjTvvwweTYoNC[Nana k8s^]
