@@ -592,6 +592,7 @@ pre.rouge .gs {
 <li><a href="#_2023_10_09">6. 2023-10-09</a>
 <ul class="sectlevel2">
 <li><a href="#_dom_domain_object_model">6.1. DOM - Domain Object Model</a></li>
+<li><a href="#_übung">6.2. Übung</a></li>
 </ul>
 </li>
 </ul>
@@ -1128,8 +1129,33 @@ In einem ersten Schritt erstelle ich ein Datenmodell ohne technische Infos zB Id
 <h3 id="_dom_domain_object_model"><a class="anchor" href="#_dom_domain_object_model"></a>6.1. DOM - Domain Object Model</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/assoziationen.svg" alt="assoziationen" width="306" height="95">
+<img src="images/assoziationen.svg" alt="assoziationen" width="171" height="232">
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>der Pfeil bei der Beziehung stellt eine gerichtete Assoziation dar, dh</p>
+<div class="ulist">
+<ul>
+<li>
+<p>wenn wir uns "in" einem Person - Objekt befinden können wir über hobby auf das zugehörige Hobby zugreifen, zB</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nc">Hobby</span> <span class="n">h</span> <span class="o">=</span> <span class="n">franzi</span><span class="o">.</span><span class="na">getHobby</span><span class="o">();</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Umgekehrt ist das nicht möglich. Bin ich "in" einem Hobby Objekt, habe ich keinen Zugriff auf alle Personen die diese Hobby ausüben</p>
+</li>
+<li>
+<p>Man müsste zuerst eine SQL-Query absetzen, um eine Liste aller Personen zu erhalten, die dieses Hobby ausüben</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1158,12 +1184,25 @@ In einem ersten Schritt erstelle ich ein Datenmodell ohne technische Infos zB Id
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_übung"><a class="anchor" href="#_übung"></a>6.2. Übung</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Verbesserung Datenmodell</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/playlist?list=PLy7NrYWoggjziYQIDorlXjTvvwweTYoNC" target="_blank" rel="noopener">Nana k8s</a></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-09 09:22:10 UTC
+Last updated 2023-10-12 09:09:27 UTC
 </div>
 </div>
 </body>
