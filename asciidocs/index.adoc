@@ -381,3 +381,115 @@ public static void main(...) {
 
 * Verbesserung Datenmodell
 * https://www.youtube.com/playlist?list=PLy7NrYWoggjziYQIDorlXjTvvwweTYoNC[Nana k8s^]
+
+== 2023-10-12
+_Geschrieben von Jonas Pamminger_
+
+=== Arrange, Act, Assert
+
+Arrange, Act, Assert ist ein Pattern, das verwendet wird, um Unit-Tests zu schreiben. Es besteht aus drei Schritten:
+
+* *Arrange* - Aufsetzen der Testfälle, wie zum Beispiel:
+** Braucht der Test irgendwelche Objekte oder spezielle Settings?
+** Muss man eine Datenbank vorbereiten?
+** Muss man sich irgendwo anmelden?
+* *Act* - Ausführen des Tests
+** Hier werden die Methode aufrufen, die wir testen wollen, dass könnte zum Beispiel sein:
+*** Aufruf von Methoden
+*** Aufruf von einer REST API
+* *Assert* - Überprüfen des Ergebnisses
+** Hier wird überprüft, ob das Ergebnis dem erwarteten Ergebnis entspricht
+** Der Act Step sollte eine Art von Antwort haben. Im Assert Step wird diese Antwort überprüft.
+** Der Assert Step entscheidet dann ob der Test erfolgreich war oder nicht.
+
+=== Quarkus REST-Service
+
+NOTE: Am Anfang immer *mvnw clean* ausführen, um den target Ordner zu löschen.
+
+.So wird die Antwort als JSON zurückgegeben.
+[source,java]
+----
+@Produces(MediaType.APPLICATION_JSON)
+ public Vehicle find() {...}
+----
+.Es ist auch möglich mehrere Formate zuzulassen, das schaut dann zum Beispiel so aus:
+[source,java]
+----
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+ public Vehicle find() {...}
+----
+
+NOTE: Wenn wir XML zurückgeben wollen müssen wir auch @Produces setzen. Aber die Klassen die wir zurückgeben müssen auch mit @XmlRootElement annotiert werden.
+
+=== Testing
+
+==== Matcher
+
+NOTE: to match heißt übersetzt schauen ob etwas übereinstimmt.
+
+Ein Matcher ist ein Tool das uns ermöglicht, zu überprüfen, ob bestimmte Teile des Programms das erwartete Ergebnis produzieren.
+
+Zum Beispiel, wenn man eine Funktion hat die zwei Zahlen addiert kann ein Matcher sicherstellen, dass das Ergebnis der Addition das erwartete Ergebnis ist.
+
+In einfachen Worten ist ein Matcher also ein Werkzeug, das in Unit-Tests verwendet wird, um zu überprüfen, ob der Code das tut, was er tun soll, indem er die tatsächlichen Ergebnisse mit den erwarteten Ergebnissen vergleicht.
+
+Wir nutzten den Matcher https://assertj.github.io/doc/[assertj]. Dieser Matcher ist sehr mächtig und wird noch immer weiterentwickelt.
+
+Für von der REST-API haben wir rest-assured verwendet. Dieser Matcher ist speziell für REST-APIs entwickelt worden. Hier ist ein kurzes Beispiel
+
+.Hier sieht man schön warum REST-Assured und assertj so gut sind, weil bei beiden kann man so viel mit einem Test überprüfen und muss nicht mehrere Tests schreiben.
+[source,java]
+----
+@Test
+    void testVehicleEndpoint() {
+        given()
+                .when()
+                    // .log().body()
+                    .get("/vehicle")
+                .then()
+                    .log().body()
+                    .statusCode(200)
+                    // is ist veraltet, assertThat verwenden
+                    .body("brand[0]", is("Opel"), "model[0]", is("Commodore"),
+                            "brand[1]", is("Opel"), "model[1]", is("Kadett"));
+    }
+----
+IMPORTANT: In den Technology Notes wird noch manchmal der Matcher Hamcrest verwendet. Dieser Matcher ist veraltet und sollte nicht mehr verwendet werden.
+
+==== API-Testing
+
+Für API-Testing kann man vollende Tools nutzen:
+
+* https://insomnia.rest/[Insomnia]
+* https://www.karatelabs.io/[Karate]
+** Sehr viele Anwendungsfelder von Performance Testing bis Desktop App Testing
+* Postman
+* .http Dateien
+** Fast alle IDEs unterstützen .http Dateien
+* curl
+** einfach und schnell in der Konsole
+
+=== Parameter bei Requests
+
+.Überblick über die wichtigsten Request Parameter Arten
+|===
+| Parameterart | Beschreibung | Beispiel
+| Query-Parameter | Übertragen Informationen in der URL | https://example.com/api?param1=value1&param2=value2
+| Path-Parameter | Teile der URL, die als Parameter interpretiert werden | https://example.com/api/resource/{id}
+| Header-Parameter | Informationen in den HTTP-Headern | curl https://reqbin.com/echo/post/json
+-H 'X-Custom-Header: value'
+-H 'Content-Type: application/json'
+-d '{"Id": 1}'
+| JSON-Parameter | Übertragen von Daten im Request-Body als JSON | POST /api
+Content-Type: application/json
+
+{"param1": "value1", "param2": "value2"}
+| XML-Parameter | Übertragen von Daten im Request-Body als XML | POST /api
+Content-Type: application/xml
+
+<request><param1>value1</param1><param2>value2</param2></request>
+|===
+
+https://mkyong.com/webservices/jax-rs/jax-rs-queryparam-example/[Bespiele mit Quarkus findest man hier]
+
+
