@@ -404,7 +404,7 @@ Arrange, Act, Assert ist ein Pattern, das verwendet wird, um Unit-Tests zu schre
 
 === Quarkus REST-Service
 
-NOTE: Am Anfang immer *mvnw clean* ausführen, um den target Ordner zu löschen.
+NOTE: Am Anfang immer empfehlenswert *./mvnw clean* ausführen, um den target Ordner zu löschen.
 
 .So wird die Antwort als JSON zurückgegeben.
 [source,java]
@@ -440,7 +440,7 @@ Für von der REST-API haben wir rest-assured verwendet. Dieser Matcher ist spezi
 .Hier sieht man schön warum REST-Assured und assertj so gut sind, weil bei beiden kann man so viel mit einem Test überprüfen und muss nicht mehrere Tests schreiben.
 [source,java]
 ----
-@Test
+    @Test
     void testVehicleEndpoint() {
         given()
                 .when()
@@ -454,6 +454,24 @@ Für von der REST-API haben wir rest-assured verwendet. Dieser Matcher ist spezi
                             "brand[1]", is("Opel"), "model[1]", is("Kadett"));
     }
 ----
+
+
+1. @Test: Dies ist eine Annotation, die anzeigt, dass die folgende Methode als Testfall ausgeführt werden soll. In diesem Fall handelt es sich um die Methode testVehicleEndpoint.
+
+2. given(): Dies ist der Startpunkt für die Verkettung von Methoden, die die Vorbereitung für die API-Anfrage durchführen. Hier wird eine HTTP-Anfrage vorbereitet.
+
+3. .when(): Dies ist eine Fortsetzung der Vorbereitung und zeigt an, dass die nächste Aktion die Ausführung der Anfrage ist.
+
+4. .get("/vehicle"): Hier wird die tatsächliche HTTP-GET-Anfrage an den Endpunkt "/vehicle" gesendet.
+
+5. .then(): Nachdem die Anfrage abgeschlossen ist, beginnt dieser Block die Verkettung von Methoden, um die Antwort zu überprüfen.
+
+6. .log().body(): Dieser Befehl zeichnet den Inhalt der Antwort (Body) in den Testprotokollen auf. Es wird oft verwendet, um Debugging-Informationen anzuzeigen.
+
+7. .statusCode(200): Hier wird überprüft, ob der HTTP-Statuscode der Antwort 200 (OK) ist. Wenn nicht, schlägt der Test fehl.
+
+8. .body("brand[0]", is("Opel"), "model[0]", is("Commodore"), "brand[1]", is("Opel"), "model[1]", is("Kadett")): Dieser Teil des Codes überprüft den Inhalt des Antwortkörpers. Es verwendet Hamcrest-Matchers (wie is) für die Prüfung. Hier wird erwartet, dass die Antwort ein JSON-Objekt enthält, das die Felder "brand" und "model" enthält, wobei die Werte an den Indexpositionen 0 und 1 jeweils "Opel" und "Commodore" bzw. "Opel" und "Kadett" entsprechen. Wenn dies nicht der Fall ist, schlägt der Test fehl.
+
 IMPORTANT: In den Technology Notes wird noch manchmal der Matcher Hamcrest verwendet. Dieser Matcher ist veraltet und sollte nicht mehr verwendet werden.
 
 ==== API-Testing
@@ -463,7 +481,8 @@ Für API-Testing kann man vollende Tools nutzen:
 * https://insomnia.rest/[Insomnia]
 * https://www.karatelabs.io/[Karate]
 ** Sehr viele Anwendungsfelder von Performance Testing bis Desktop App Testing
-* Postman
+** Für unsere Zwecke ist es aber zu komplex
+* https://www.postman.com/[Postman]
 * .http Dateien
 ** Fast alle IDEs unterstützen .http Dateien
 * curl
@@ -492,4 +511,5 @@ Content-Type: application/xml
 
 https://mkyong.com/webservices/jax-rs/jax-rs-queryparam-example/[Bespiele mit Quarkus findest man hier]
 
+https://mkyong.com/webservices/jax-rs/jax-rs-pathparam-example/[und hier]
 
