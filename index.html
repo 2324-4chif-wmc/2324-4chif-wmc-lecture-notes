@@ -595,7 +595,14 @@ pre.rouge .gs {
 <li><a href="#_übung">6.2. Übung</a></li>
 </ul>
 </li>
-<li><a href="#_2023_10_16">7. 2023-10-16</a></li>
+<li><a href="#_2023_10_12">7. 2023-10-12</a>
+<ul class="sectlevel2">
+<li><a href="#_arrange_act_assert">7.1. Arrange, Act, Assert</a></li>
+<li><a href="#_quarkus_rest_service">7.2. Quarkus REST-Service</a></li>
+<li><a href="#_testing">7.3. Testing</a></li>
+<li><a href="#_parameter_bei_requests">7.4. Parameter bei Requests</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1204,8 +1211,314 @@ In einem ersten Schritt erstelle ich ein Datenmodell ohne technische Infos zB Id
 </div>
 </div>
 <div class="sect1">
-<h2 id="_2023_10_16"><a class="anchor" href="#_2023_10_16"></a>7. 2023-10-16</h2>
+<h2 id="_2023_10_12"><a class="anchor" href="#_2023_10_12"></a>7. 2023-10-12</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><em>Geschrieben von Jonas Pamminger</em></p>
+</div>
+<div class="sect2">
+<h3 id="_arrange_act_assert"><a class="anchor" href="#_arrange_act_assert"></a>7.1. Arrange, Act, Assert</h3>
+<div class="paragraph">
+<p>Arrange, Act, Assert ist ein Pattern, das verwendet wird, um Unit-Tests zu schreiben. Es besteht aus drei Schritten:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Arrange</strong> - Aufsetzen der Testfälle, wie zum Beispiel:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Braucht der Test irgendwelche Objekte oder spezielle Settings?</p>
+</li>
+<li>
+<p>Muss man eine Datenbank vorbereiten?</p>
+</li>
+<li>
+<p>Muss man sich irgendwo anmelden?</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Act</strong> - Ausführen des Tests</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Hier werden die Methode aufrufen, die wir testen wollen, dass könnte zum Beispiel sein:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Aufruf von Methoden</p>
+</li>
+<li>
+<p>Aufruf von einer REST API</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Assert</strong> - Überprüfen des Ergebnisses</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Hier wird überprüft, ob das Ergebnis dem erwarteten Ergebnis entspricht</p>
+</li>
+<li>
+<p>Der Act Step sollte eine Art von Antwort haben. Im Assert Step wird diese Antwort überprüft.</p>
+</li>
+<li>
+<p>Der Assert Step entscheidet dann ob der Test erfolgreich war oder nicht.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quarkus_rest_service"><a class="anchor" href="#_quarkus_rest_service"></a>7.2. Quarkus REST-Service</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Am Anfang immer empfehlenswert <strong>./mvnw clean</strong> ausführen, um den target Ordner zu löschen.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">So wird die Antwort als JSON zurückgegeben.</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Produces</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+ <span class="kd">public</span> <span class="nc">Vehicle</span> <span class="nf">find</span><span class="o">()</span> <span class="o">{...}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Es ist auch möglich mehrere Formate zuzulassen, das schaut dann zum Beispiel so aus:</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Produces</span><span class="o">({</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">,</span> <span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_XML</span><span class="o">})</span>
+ <span class="kd">public</span> <span class="nc">Vehicle</span> <span class="nf">find</span><span class="o">()</span> <span class="o">{...}</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Wenn wir XML zurückgeben wollen müssen wir auch @Produces setzen. Aber die Klassen die wir zurückgeben müssen auch mit @XmlRootElement annotiert werden.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_testing"><a class="anchor" href="#_testing"></a>7.3. Testing</h3>
+<div class="sect3">
+<h4 id="_matcher"><a class="anchor" href="#_matcher"></a>7.3.1. Matcher</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+to match heißt übersetzt schauen ob etwas übereinstimmt.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ein Matcher ist ein Tool das uns ermöglicht, zu überprüfen, ob bestimmte Teile des Programms das erwartete Ergebnis produzieren.</p>
+</div>
+<div class="paragraph">
+<p>Zum Beispiel, wenn man eine Funktion hat die zwei Zahlen addiert kann ein Matcher sicherstellen, dass das Ergebnis der Addition das erwartete Ergebnis ist.</p>
+</div>
+<div class="paragraph">
+<p>In einfachen Worten ist ein Matcher also ein Werkzeug, das in Unit-Tests verwendet wird, um zu überprüfen, ob der Code das tut, was er tun soll, indem er die tatsächlichen Ergebnisse mit den erwarteten Ergebnissen vergleicht.</p>
+</div>
+<div class="paragraph">
+<p>Wir nutzten den Matcher <a href="https://assertj.github.io/doc/">assertj</a>. Dieser Matcher ist sehr mächtig und wird noch immer weiterentwickelt.</p>
+</div>
+<div class="paragraph">
+<p>Für von der REST-API haben wir rest-assured verwendet. Dieser Matcher ist speziell für REST-APIs entwickelt worden. Hier ist ein kurzes Beispiel</p>
+</div>
+<div class="listingblock">
+<div class="title">Hier sieht man schön warum REST-Assured und assertj so gut sind, weil bei beiden kann man so viel mit einem Test überprüfen und muss nicht mehrere Tests schreiben.</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">testVehicleEndpoint</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">given</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">when</span><span class="o">()</span>
+                    <span class="c1">// .log().body()</span>
+                    <span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/vehicle"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">then</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">log</span><span class="o">().</span><span class="na">body</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">statusCode</span><span class="o">(</span><span class="mi">200</span><span class="o">)</span>
+                    <span class="c1">// is ist veraltet, assertThat verwenden</span>
+                    <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="s">"brand[0]"</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="s">"Opel"</span><span class="o">),</span> <span class="s">"model[0]"</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="s">"Commodore"</span><span class="o">),</span>
+                            <span class="s">"brand[1]"</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="s">"Opel"</span><span class="o">),</span> <span class="s">"model[1]"</span><span class="o">,</span> <span class="n">is</span><span class="o">(</span><span class="s">"Kadett"</span><span class="o">));</span>
+    <span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>@Test: Dies ist eine Annotation, die anzeigt, dass die folgende Methode als Testfall ausgeführt werden soll. In diesem Fall handelt es sich um die Methode testVehicleEndpoint.</p>
+</li>
+<li>
+<p>given(): Dies ist der Startpunkt für die Verkettung von Methoden, die die Vorbereitung für die API-Anfrage durchführen. Hier wird eine HTTP-Anfrage vorbereitet.</p>
+</li>
+<li>
+<p>.when(): Dies ist eine Fortsetzung der Vorbereitung und zeigt an, dass die nächste Aktion die Ausführung der Anfrage ist.</p>
+</li>
+<li>
+<p>.get("/vehicle"): Hier wird die tatsächliche HTTP-GET-Anfrage an den Endpunkt "/vehicle" gesendet.</p>
+</li>
+<li>
+<p>.then(): Nachdem die Anfrage abgeschlossen ist, beginnt dieser Block die Verkettung von Methoden, um die Antwort zu überprüfen.</p>
+</li>
+<li>
+<p>.log().body(): Dieser Befehl zeichnet den Inhalt der Antwort (Body) in den Testprotokollen auf. Es wird oft verwendet, um Debugging-Informationen anzuzeigen.</p>
+</li>
+<li>
+<p>.statusCode(200): Hier wird überprüft, ob der HTTP-Statuscode der Antwort 200 (OK) ist. Wenn nicht, schlägt der Test fehl.</p>
+</li>
+<li>
+<p>.body("brand[0]", is("Opel"), "model[0]", is("Commodore"), "brand[1]", is("Opel"), "model[1]", is("Kadett")): Dieser Teil des Codes überprüft den Inhalt des Antwortkörpers. Es verwendet Hamcrest-Matchers (wie is) für die Prüfung. Hier wird erwartet, dass die Antwort ein JSON-Objekt enthält, das die Felder "brand" und "model" enthält, wobei die Werte an den Indexpositionen 0 und 1 jeweils "Opel" und "Commodore" bzw. "Opel" und "Kadett" entsprechen. Wenn dies nicht der Fall ist, schlägt der Test fehl.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In den Technology Notes wird noch manchmal der Matcher Hamcrest verwendet. Dieser Matcher ist veraltet und sollte nicht mehr verwendet werden.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_api_testing"><a class="anchor" href="#_api_testing"></a>7.3.2. API-Testing</h4>
+<div class="paragraph">
+<p>Für API-Testing kann man vollende Tools nutzen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://insomnia.rest/">Insomnia</a></p>
+</li>
+<li>
+<p><a href="https://www.karatelabs.io/">Karate</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sehr viele Anwendungsfelder von Performance Testing bis Desktop App Testing</p>
+</li>
+<li>
+<p>Für unsere Zwecke ist es aber zu komplex</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://www.postman.com/">Postman</a></p>
+</li>
+<li>
+<p>.http Dateien</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fast alle IDEs unterstützen .http Dateien</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>curl</p>
+<div class="ulist">
+<ul>
+<li>
+<p>einfach und schnell in der Konsole</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parameter_bei_requests"><a class="anchor" href="#_parameter_bei_requests"></a>7.4. Parameter bei Requests</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Überblick über die wichtigsten Request Parameter Arten</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parameterart</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beschreibung</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beispiel</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Query-Parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Übertragen Informationen in der URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://example.com/api?param1=value1&amp;param2=value2" class="bare">https://example.com/api?param1=value1&amp;param2=value2</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path-Parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Teile der URL, die als Parameter interpretiert werden</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://example.com/api/resource/{id}" class="bare">https://example.com/api/resource/{id}</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Header-Parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Informationen in den HTTP-Headern</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">curl <a href="https://reqbin.com/echo/post/json" class="bare">https://reqbin.com/echo/post/json</a>
+-H 'X-Custom-Header: value'
+-H 'Content-Type: application/json'
+-d '{"Id": 1}'</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON-Parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Übertragen von Daten im Request-Body als JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST /api
+Content-Type: application/json</p>
+<p class="tableblock">{"param1": "value1", "param2": "value2"}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">XML-Parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Übertragen von Daten im Request-Body als XML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST /api
+Content-Type: application/xml</p>
+<p class="tableblock">&lt;request&gt;&lt;param1&gt;value1&lt;/param1&gt;&lt;param2&gt;value2&lt;/param2&gt;&lt;/request&gt;</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><a href="https://mkyong.com/webservices/jax-rs/jax-rs-queryparam-example/">Bespiele mit Quarkus findest man hier</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://mkyong.com/webservices/jax-rs/jax-rs-pathparam-example/">und hier</a></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>== 2023-10-16</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1216,9 +1529,12 @@ In einem ersten Schritt erstelle ich ein Datenmodell ohne technische Infos zB Id
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-16 10:27:35 UTC
+Last updated 2023-10-16 10:52:13 UTC
 </div>
 </div>
 </body>
