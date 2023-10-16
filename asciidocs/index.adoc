@@ -102,6 +102,8 @@ endif::backend-html5[]
 image::jakartaee-vs-microprofile.png[]
 
 
+
+
 |===
 |*Jakarta EE* |*Microprofile*
 |Umfassende Plattform für die Entwicklung von Unternehmensanwendungen in Java.
@@ -221,6 +223,8 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 
 
 == 2023-10-02
+
+\[Davila Mendez Francisco]
 
 === JVM
 Die Java Virtual Machine interpretiert den kompilierten Code in Bytecode, was sie sehr langsam macht.
@@ -381,3 +385,8 @@ public static void main(...) {
 
 * Verbesserung Datenmodell
 * https://www.youtube.com/playlist?list=PLy7NrYWoggjziYQIDorlXjTvvwweTYoNC[Nana k8s^]
+
+
+== 2023-10-16
+
+* Wiederholungen, da Fototermin
