@@ -1158,7 +1158,7 @@ In einem ersten Schritt erstelle ich ein Datenmodell ohne technische Infos zB Id
 </div>
 </li>
 <li>
-<p>Umgekehrt ist das nicht möglich. Bin ich "in" einem Hobby Objekt, habe ich keinen Zugriff auf alle Personen die diese Hobby ausüben</p>
+<p>Umgekehrt ist das nicht möglich. Bin ich "in" einem Hobby Objekt, habe ich keinen Zugriff auf alle Personen die dieses Hobby ausüben</p>
 </li>
 <li>
 <p>Man müsste zuerst eine SQL-Query absetzen, um eine Liste aller Personen zu erhalten, die dieses Hobby ausüben</p>
@@ -1526,6 +1526,97 @@ Content-Type: application/xml</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>== 2023-10-19</p>
+</div>
+<div class="paragraph">
+<p>=== REST Rückgabetypen</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>JSON-Libraries</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Jackson</p>
+</li>
+<li>
+<p>GSON</p>
+</li>
+<li>
+<p>jakarta.json (<a href="https://javaee.github.io/jsonp/" target="_blank" rel="noopener">JSON-P</a>)</p>
+</li>
+<li>
+<p>uvam.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>=== JSON-P (JSON Processing)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>JSON-Objekte können selbst gebaut werden</p>
+</li>
+<li>
+<p>Folgende Datentypen:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>JsonObject</p>
+</li>
+<li>
+<p>JsonArray</p>
+</li>
+<li>
+<p>JsonValue</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>JsonValue verwendet man, wenn noch nicht sicher ist welcher Datentyp empfangen oder gesendet wird (entweder JsonObject oder JsonArray)</p>
+</li>
+<li>
+<p>Für die Verarbeitung von Json gibt es (neben anderen) zwei Standards</p>
+<div class="ulist">
+<ul>
+<li>
+<p>JSON-P</p>
+<div class="ulist">
+<ul>
+<li>
+<p>zum Erstellen von beliebigen Json-Objekten inkl JsonArrays</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>JSON Binding (JAX-B für XML)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Zum automatischen marshalling und unmarshalling von Java-Objekten in eine Json Repräsentation und vice versa</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://youtu.be/I2RS1ARApkE?si=jeTlFM3Iyj6ETJ01" target="_blank" rel="noopener">Adam Bien</a></p>
+</li>
+<li>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc2616" target="_blank" rel="noopener">HTTP Specification</a></p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1534,7 +1625,7 @@ Content-Type: application/xml</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-16 10:52:13 UTC
+Last updated 2023-10-19 12:43:38 UTC
 </div>
 </div>
 </body>
