@@ -348,7 +348,7 @@ Person --> Hobby
 ----
 Hobby h = franzi.getHobby();
 ----
-** Umgekehrt ist das nicht möglich. Bin ich "in" einem Hobby Objekt, habe ich keinen Zugriff auf alle Personen die diese Hobby ausüben
+** Umgekehrt ist das nicht möglich. Bin ich "in" einem Hobby Objekt, habe ich keinen Zugriff auf alle Personen die dieses Hobby ausüben
 ** Man müsste zuerst eine SQL-Query absetzen, um eine Liste aller Personen zu erhalten, die dieses Hobby ausüben
 
 
@@ -390,3 +390,37 @@ public static void main(...) {
 == 2023-10-16
 
 * Wiederholungen, da Fototermin
+
+
+== 2023-10-19
+
+=== REST Rückgabetypen
+
+* JSON-Libraries
+** Jackson
+** GSON
+** jakarta.json (https://javaee.github.io/jsonp/[JSON-P^])
+** uvam.
+
+
+=== JSON-P (JSON Processing)
+
+* JSON-Objekte können selbst gebaut werden
+
+* Folgende Datentypen:
+** JsonObject
+** JsonArray
+** JsonValue
+
+* JsonValue verwendet man, wenn noch nicht sicher ist welcher Datentyp empfangen oder gesendet wird (entweder JsonObject oder JsonArray)
+
+* Für die Verarbeitung von Json gibt es (neben anderen) zwei Standards
+** JSON-P
+*** zum Erstellen von beliebigen Json-Objekten inkl JsonArrays
+** JSON Binding (JAX-B für XML)
+*** Zum automatischen marshalling und unmarshalling von Java-Objekten in eine Json Repräsentation und vice versa
+
+
+* https://youtu.be/I2RS1ARApkE?si=jeTlFM3Iyj6ETJ01[Adam Bien^]
+
+* https://datatracker.ietf.org/doc/html/rfc2616[HTTP Specification^]
