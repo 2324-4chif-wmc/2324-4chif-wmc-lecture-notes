@@ -524,6 +524,7 @@ https://mkyong.com/webservices/jax-rs/jax-rs-pathparam-example/[und hier]
 
 
 == 2023-10-19
+_Erweitert von Niklas Trinkl_
 
 === REST Rückgabetypen
 
@@ -550,8 +551,161 @@ https://mkyong.com/webservices/jax-rs/jax-rs-pathparam-example/[und hier]
 *** zum Erstellen von beliebigen Json-Objekten inkl JsonArrays
 ** JSON Binding (JAX-B für XML)
 *** Zum automatischen marshalling und unmarshalling von Java-Objekten in eine Json Repräsentation und vice versa
+**** Marshalling bedeutet, dass ein Java-Objekt in eine Json Repräsentation (Json-Objekt oder Json-Array) umgewandelt wird
+**** Serialization bedeutet, dass ein Objekt in einen Byte-Stream umgewandelt wird, der Code wird aber nicht mit umgewandelt. Serialization ist ein Teil von Marshalling
+
+.Default mapping (ohne eigener JsonbConfig)
+[source,java]
+----
+Jsonb jsonb = JsonbBuilder.create();
+
+//Serialisieren
+String result = jsonb.toJson(person);
+
+//Deserialisieren
+person = jsonb.fromJson("{name:\"Joe\"}", Person.class);
+----
+
+.Customized mapping (mit eigener JsonbConfig)
+[source,java]
+----
+JsonbConfig config = new JsonbConfig()
+    .withFormatting(true)
+    .withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
+
+Jsonb jsonb = JsonbBuilder.create(config);
+
+//Serialisieren
+String result = jsonb.toJson(person);
+
+//Deserialisieren
+person = jsonb.fromJson("{\"person_name\":\"Alice\"}", Person.class);
+----
+
+
+Im folgenden Beispiel wird die @JsonbProperty-Annotation verwendet, um das Feld "name" in "person-name" umzubenennen, wenn das Objekt in JSON serialisiert wird.
+
+.Customizing with Annotations 
+[source,java]
+----
+public class Person {
+    @JsonbProperty("person-name")
+    private String name;
+}
+----
+
+.Das resultierende JSON-Dokument sieht folgendermaßen aus:
+[source,json]
+----
+{
+    "person-name": "Fred"
+}
+----
 
 
 * https://youtu.be/I2RS1ARApkE?si=jeTlFM3Iyj6ETJ01[Adam Bien^]
 
 * https://datatracker.ietf.org/doc/html/rfc2616[HTTP Specification^]
+
+
+=== Response 
+
+==== GET Response
+
+[source,java]
+----
+    @GET
+    @Path("response")
+    public Response getResponse() {
+        return Response.ok(new Vehicle("Opel", "Senator"))
+                .header("MY-SUPER-HEADER", "super")
+                .build();
+    }
+----
+
+1. @GET und @Path("response"): Dies sind JAX-RS-Annotationen für eine RESTful-Service-Methode. @GET gibt an, dass diese Methode auf HTTP GET-Anfragen reagiert, und @Path("response") legt den Pfad fest, unter dem die Methode aufgerufen wird, z. B. "/response".
+
+2. public Response getResponse(): Dies ist die Methode selbst, die aufgerufen wird, wenn eine GET-Anfrage an den angegebenen Pfad gestellt wird. Sie gibt eine Response zurück, die eine HTTP-Antwort repräsentiert.
+
+3. Response.ok(new Vehicle("Opel", "Senator")): Hier wird eine erfolgreiche (HTTP-Statuscode 200) Response erstellt. Sie enthält ein Objekt vom Typ Vehicle, wobei "Opel" und "Senator" als Parameter übergeben werden.
+
+4. header("MY-SUPER-HEADER", "super"): Hier wird ein benutzerdefinierter Header ("MY-SUPER-HEADER") zur HTTP-Antwort hinzugefügt, und ihm wird der Wert "super" zugewiesen.
+
+5. build(): Hier wird die endgültige HTTP-Antwort erstellt und zurückgegeben.
+
+
+==== POST Response
+
+[source,java]
+----
+    @POST
+    public Response createVehicle(Vehicle vehicle) {
+    return Response
+            .ok(Json.createObjectBuilder()
+                    .add("a", "b")
+                    .build().toString()
+            )
+            .build();
+    }
+----
+
+1. @POST: Dies ist eine JAX-RS-Annotation, die anzeigt, dass diese Methode auf HTTP POST-Anfragen reagiert. Das bedeutet, dass sie verwendet wird, um Ressourcen zu erstellen oder Daten an den Server zu senden.
+
+2. public Response createVehicle(Vehicle vehicle): Dies ist die Methode, die aufgerufen wird, wenn eine POST-Anfrage eingeht. Sie erwartet ein Objekt vom Typ Vehicle als Parameter, das in der Anfrage übermittelt wird.
+
+3. Response.ok(Json.createObjectBuilder().add("a", "b").build().toString()): Hier wird eine erfolgreiche (HTTP-Statuscode 200) Response erstellt. Der Inhalt der Antwort wird als JSON erstellt, indem ein JSON-Objekt mit einem Schlüssel-Wert-Paar ("a" - "b") erstellt und dann in einen JSON-String umgewandelt wird.
+
+4. build(): Hier wird die endgültige HTTP-Antwort erstellt und zurückgegeben.
+
+NOTE: Methoden mit . anreihen nennt man *chaining*
+
+
+.mit @Context
+[source,java]
+----
+    @POST
+    public Response createVehicle(Vehicle vehicle, @Context UriInfo uriInfo) {
+        URI uri = uriInfo.getAbsolutePathBuilder().path("23").build();
+
+        return Response
+                .created(uri)
+                .build();
+    }
+----
+
+1. @POST: Die Methode reagiert auf HTTP POST-Anfragen.
+
+2. public Response createVehicle(Vehicle vehicle, @Context UriInfo uriInfo): Die Methode erwartet ein Vehicle-Objekt in der Anfrage und verwendet @Context zusammen mit UriInfo uriInfo für den Zugriff auf die Anfrage-URI-Informationen.
+
+3. URI uri = uriInfo.getAbsolutePathBuilder().path("23").build(): Erstellt eine URI mit dem Basis-URI und dem angehängten Pfad "23".
+
+4. Response.created(uri).build(): Erstellt eine HTTP-Antwort mit Statuscode 201 (erstellt) und gibt die erstellte URI zurück.
+
+NOTE: @Context: Diese Annotation ermöglicht den Zugriff auf verschiedene Kontextinformationen, die von der JAX-RS-Laufzeit bereitgestellt werden.
+
+=== Web Application Exception
+
+Web Application Exceptions werden verwendet, damit der Code einfacher, sauberer und besser zu verstehen ist. Es ist sauberer eine `throw new ProductNotFoundException()` zu schreiben, als eine Response mit einem HTTP-Statuscode zu erstellen und erst später die Details des Fehlers herauszufinden. 
+
+=== Request- und Response-Filter
+
+Filter können verwendet werden um Request- oder Response-Parameter, wie Headers zu verändern oder zu überprüfen. Um Filter hinzuzufügen muss man entweder `ContainerRequestFilter` oder `ContainerResponseFilter` implementieren. Es ist außerdem ratsam die Annotation  `@Provider` zu verwenden, damit der Filter auch gefunden wird.
+
+.Beispiel wie Filter in JAX-RS verwendet werden
+[source,java]
+----
+@Provider
+public class LogFilter implements ContainerRequestFilter, ContainerResponseFilter {
+
+  @Override
+  public void filter(ContainerRequestContext reqContext) throws IOException {
+      System.out.println(reqContext.getUriInfo(), reqContext.getHeaders());
+
+  }
+
+  @Override
+  public void filter(ContainerRequestContext reqContext, ContainerResponseContext resContext) throws IOException {
+      System.out.println(reqContext.getUriInfo(), resContext.getHeaders());
+  }
+}
+----
