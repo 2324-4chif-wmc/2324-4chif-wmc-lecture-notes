@@ -608,6 +608,9 @@ pre.rouge .gs {
 <ul class="sectlevel2">
 <li><a href="#_rest_rückgabetypen">9.1. REST Rückgabetypen</a></li>
 <li><a href="#_json_p_json_processing">9.2. JSON-P (JSON Processing)</a></li>
+<li><a href="#_response">9.3. Response</a></li>
+<li><a href="#_web_application_exception">9.4. Web Application Exception</a></li>
+<li><a href="#_request_und_response_filter">9.5. Request- und Response-Filter</a></li>
 </ul>
 </li>
 </ul>
@@ -1539,6 +1542,9 @@ Content-Type: application/xml</p>
 <div class="sect1">
 <h2 id="_2023_10_19"><a class="anchor" href="#_2023_10_19"></a>9. 2023-10-19</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><em>Erweitert von Niklas Trinkl</em></p>
+</div>
 <div class="sect2">
 <h3 id="_rest_rückgabetypen"><a class="anchor" href="#_rest_rückgabetypen"></a>9.1. REST Rückgabetypen</h3>
 <div class="ulist">
@@ -1611,6 +1617,13 @@ Content-Type: application/xml</p>
 <ul>
 <li>
 <p>Zum automatischen marshalling und unmarshalling von Java-Objekten in eine Json Repräsentation und vice versa</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Marshalling bedeutet, dass ein Java-Objekt in eine Json Repräsentation (Json-Objekt oder Json-Array) umgewandelt wird</p>
+</li>
+<li>
+<p>Serialization bedeutet, dass ein Objekt in einen Byte-Stream umgewandelt wird, der Code wird aber nicht mit umgewandelt. Serialization ist ein Teil von Marshalling</p>
 </li>
 </ul>
 </div>
@@ -1618,6 +1631,61 @@ Content-Type: application/xml</p>
 </ul>
 </div>
 </li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Default mapping (ohne eigener JsonbConfig)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nc">Jsonb</span> <span class="n">jsonb</span> <span class="o">=</span> <span class="nc">JsonbBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+
+<span class="c1">//Serialisieren</span>
+<span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">jsonb</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">person</span><span class="o">);</span>
+
+<span class="c1">//Deserialisieren</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">jsonb</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="s">"{name:\"Joe\"}"</span><span class="o">,</span> <span class="nc">Person</span><span class="o">.</span><span class="na">class</span><span class="o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Customized mapping (mit eigener JsonbConfig)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nc">JsonbConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JsonbConfig</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">withFormatting</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">withPropertyNamingStrategy</span><span class="o">(</span><span class="nc">PropertyNamingStrategy</span><span class="o">.</span><span class="na">LOWER_CASE_WITH_UNDERSCORES</span><span class="o">);</span>
+
+<span class="nc">Jsonb</span> <span class="n">jsonb</span> <span class="o">=</span> <span class="nc">JsonbBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+
+<span class="c1">//Serialisieren</span>
+<span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">jsonb</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">person</span><span class="o">);</span>
+
+<span class="c1">//Deserialisieren</span>
+<span class="n">person</span> <span class="o">=</span> <span class="n">jsonb</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="s">"{\"person_name\":\"Alice\"}"</span><span class="o">,</span> <span class="nc">Person</span><span class="o">.</span><span class="na">class</span><span class="o">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Im folgenden Beispiel wird die @JsonbProperty-Annotation verwendet, um das Feld "name" in "person-name" umzubenennen, wenn das Objekt in JSON serialisiert wird.</p>
+</div>
+<div class="listingblock">
+<div class="title">Customizing with Annotations</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="nd">@JsonbProperty</span><span class="o">(</span><span class="s">"person-name"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Das resultierende JSON-Dokument sieht folgendermaßen aus:</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="w">
+    </span><span class="nl">"person-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fred"</span><span class="w">
+</span><span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p><a href="https://youtu.be/I2RS1ARApkE?si=jeTlFM3Iyj6ETJ01" target="_blank" rel="noopener">Adam Bien</a></p>
 </li>
@@ -1627,12 +1695,164 @@ Content-Type: application/xml</p>
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_response"><a class="anchor" href="#_response"></a>9.3. Response</h3>
+<div class="sect3">
+<h4 id="_get_response"><a class="anchor" href="#_get_response"></a>9.3.1. GET Response</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@GET</span>
+    <span class="nd">@Path</span><span class="o">(</span><span class="s">"response"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Response</span> <span class="nf">getResponse</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Response</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="k">new</span> <span class="nc">Vehicle</span><span class="o">(</span><span class="s">"Opel"</span><span class="o">,</span> <span class="s">"Senator"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"MY-SUPER-HEADER"</span><span class="o">,</span> <span class="s">"super"</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>@GET und @Path("response"): Dies sind JAX-RS-Annotationen für eine RESTful-Service-Methode. @GET gibt an, dass diese Methode auf HTTP GET-Anfragen reagiert, und @Path("response") legt den Pfad fest, unter dem die Methode aufgerufen wird, z. B. "/response".</p>
+</li>
+<li>
+<p>public Response getResponse(): Dies ist die Methode selbst, die aufgerufen wird, wenn eine GET-Anfrage an den angegebenen Pfad gestellt wird. Sie gibt eine Response zurück, die eine HTTP-Antwort repräsentiert.</p>
+</li>
+<li>
+<p>Response.ok(new Vehicle("Opel", "Senator")): Hier wird eine erfolgreiche (HTTP-Statuscode 200) Response erstellt. Sie enthält ein Objekt vom Typ Vehicle, wobei "Opel" und "Senator" als Parameter übergeben werden.</p>
+</li>
+<li>
+<p>header("MY-SUPER-HEADER", "super"): Hier wird ein benutzerdefinierter Header ("MY-SUPER-HEADER") zur HTTP-Antwort hinzugefügt, und ihm wird der Wert "super" zugewiesen.</p>
+</li>
+<li>
+<p>build(): Hier wird die endgültige HTTP-Antwort erstellt und zurückgegeben.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_post_response"><a class="anchor" href="#_post_response"></a>9.3.2. POST Response</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@POST</span>
+    <span class="kd">public</span> <span class="nc">Response</span> <span class="nf">createVehicle</span><span class="o">(</span><span class="nc">Vehicle</span> <span class="n">vehicle</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Response</span>
+            <span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="nc">Json</span><span class="o">.</span><span class="na">createObjectBuilder</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"a"</span><span class="o">,</span> <span class="s">"b"</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span>
+            <span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>@POST: Dies ist eine JAX-RS-Annotation, die anzeigt, dass diese Methode auf HTTP POST-Anfragen reagiert. Das bedeutet, dass sie verwendet wird, um Ressourcen zu erstellen oder Daten an den Server zu senden.</p>
+</li>
+<li>
+<p>public Response createVehicle(Vehicle vehicle): Dies ist die Methode, die aufgerufen wird, wenn eine POST-Anfrage eingeht. Sie erwartet ein Objekt vom Typ Vehicle als Parameter, das in der Anfrage übermittelt wird.</p>
+</li>
+<li>
+<p>Response.ok(Json.createObjectBuilder().add("a", "b").build().toString()): Hier wird eine erfolgreiche (HTTP-Statuscode 200) Response erstellt. Der Inhalt der Antwort wird als JSON erstellt, indem ein JSON-Objekt mit einem Schlüssel-Wert-Paar ("a" - "b") erstellt und dann in einen JSON-String umgewandelt wird.</p>
+</li>
+<li>
+<p>build(): Hier wird die endgültige HTTP-Antwort erstellt und zurückgegeben.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Methoden mit . anreihen nennt man <strong>chaining</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">mit @Context</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java">    <span class="nd">@POST</span>
+    <span class="kd">public</span> <span class="nc">Response</span> <span class="nf">createVehicle</span><span class="o">(</span><span class="nc">Vehicle</span> <span class="n">vehicle</span><span class="o">,</span> <span class="nd">@Context</span> <span class="nc">UriInfo</span> <span class="n">uriInfo</span><span class="o">)</span> <span class="o">{</span>
+        <span class="no">URI</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">uriInfo</span><span class="o">.</span><span class="na">getAbsolutePathBuilder</span><span class="o">().</span><span class="na">path</span><span class="o">(</span><span class="s">"23"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="nc">Response</span>
+                <span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>@POST: Die Methode reagiert auf HTTP POST-Anfragen.</p>
+</li>
+<li>
+<p>public Response createVehicle(Vehicle vehicle, @Context UriInfo uriInfo): Die Methode erwartet ein Vehicle-Objekt in der Anfrage und verwendet @Context zusammen mit UriInfo uriInfo für den Zugriff auf die Anfrage-URI-Informationen.</p>
+</li>
+<li>
+<p>URI uri = uriInfo.getAbsolutePathBuilder().path("23").build(): Erstellt eine URI mit dem Basis-URI und dem angehängten Pfad "23".</p>
+</li>
+<li>
+<p>Response.created(uri).build(): Erstellt eine HTTP-Antwort mit Statuscode 201 (erstellt) und gibt die erstellte URI zurück.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+@Context: Diese Annotation ermöglicht den Zugriff auf verschiedene Kontextinformationen, die von der JAX-RS-Laufzeit bereitgestellt werden.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_web_application_exception"><a class="anchor" href="#_web_application_exception"></a>9.4. Web Application Exception</h3>
+<div class="paragraph">
+<p>Web Application Exceptions werden verwendet, damit der Code einfacher, sauberer und besser zu verstehen ist. Es ist sauberer eine <code>throw new ProductNotFoundException()</code> zu schreiben, als eine Response mit einem HTTP-Statuscode zu erstellen und erst später die Details des Fehlers herauszufinden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_request_und_response_filter"><a class="anchor" href="#_request_und_response_filter"></a>9.5. Request- und Response-Filter</h3>
+<div class="paragraph">
+<p>Filter können verwendet werden um Request- oder Response-Parameter, wie Headers zu verändern oder zu überprüfen. Um Filter hinzuzufügen muss man entweder <code>ContainerRequestFilter</code> oder <code>ContainerResponseFilter</code> implementieren. Es ist außerdem ratsam die Annotation  <code>@Provider</code> zu verwenden, damit der Filter auch gefunden wird.</p>
+</div>
+<div class="listingblock">
+<div class="title">Beispiel wie Filter in JAX-RS verwendet werden</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Provider</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogFilter</span> <span class="kd">implements</span> <span class="nc">ContainerRequestFilter</span><span class="o">,</span> <span class="nc">ContainerResponseFilter</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">filter</span><span class="o">(</span><span class="nc">ContainerRequestContext</span> <span class="n">reqContext</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">reqContext</span><span class="o">.</span><span class="na">getUriInfo</span><span class="o">(),</span> <span class="n">reqContext</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">());</span>
+
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">filter</span><span class="o">(</span><span class="nc">ContainerRequestContext</span> <span class="n">reqContext</span><span class="o">,</span> <span class="nc">ContainerResponseContext</span> <span class="n">resContext</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+      <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">reqContext</span><span class="o">.</span><span class="na">getUriInfo</span><span class="o">(),</span> <span class="n">resContext</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-19 12:45:00 UTC
+Last updated 2023-10-27 14:12:48 UTC
 </div>
 </div>
 </body>
