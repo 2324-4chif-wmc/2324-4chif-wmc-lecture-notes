@@ -608,7 +608,18 @@ public class Person {
 * https://datatracker.ietf.org/doc/html/rfc2616[HTTP Specification^]
 
 
-=== Response 
+
+
+
+
+
+
+
+
+
+
+=== Response
+_geschrieben von Niklas Trinkl_
 
 ==== GET Response
 
@@ -709,3 +720,22 @@ public class LogFilter implements ContainerRequestFilter, ContainerResponseFilte
   }
 }
 ----
+
+
+== Übung 3
+
+* Erstellen Sie aufgrund des korrigierten Datenmodells ein Quarkus-Project für Ihre Themenstellung
+
+* pom.xml
+** artifactId -> backend-<projektthema>
+** groupId -> at.htlleonding.<projektthema>
+
+* Wir verwenden das BCE-Pattern mit den packages
+** boundary
+** control
+** entity
+
+* Erstellen Sie im package `entity` die Klassen für Ihr Thema
+** Achten Sie darauf KEINE Annotationen für die Persisitierung der Daten zu verwenden. Nur die POJOs sind zu erstellen
+
+* Termin: 1.November 2023 (damit wir anschließend im Unterricht die Persistierung durchführen können)
