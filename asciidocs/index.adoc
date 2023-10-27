@@ -730,12 +730,23 @@ public class LogFilter implements ContainerRequestFilter, ContainerResponseFilte
 ** artifactId -> backend-<projektthema>
 ** groupId -> at.htlleonding.<projektthema>
 
+* Extensions
+** resteasy-reactive
+** resteasy-reactive-jackson
+
+
 * Wir verwenden das BCE-Pattern mit den packages
 ** boundary
 ** control
 ** entity
 
 * Erstellen Sie im package `entity` die Klassen für Ihr Thema
-** Achten Sie darauf KEINE Annotationen für die Persisitierung der Daten zu verwenden. Nur die POJOs sind zu erstellen
+** Achten Sie darauf KEINE Annotationen für die Persistierung der Daten zu verwenden. Nur die POJOs sind zu erstellen.
 
-* Termin: 1.November 2023 (damit wir anschließend im Unterricht die Persistierung durchführen können)
+* Termin: *1. November 2023* (damit wir anschließend im Unterricht die Persistierung durchführen können)
+
+
+* Offene Punkte (für später)
+
+** Testdaten importieren mit `import.sql`
+** Unit-Tests erstellen für POJOs (entsprechend den User Stories)
