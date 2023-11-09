@@ -1,12 +1,19 @@
 package at.htlleonding.vehicle.entity;
 
+import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+@Entity
+@Table(name = "V_VEHICLE")
 @XmlRootElement
 public class Vehicle {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String brand;
     private String model;
+    private double pricePerDay;
 
     //region constructors
     public Vehicle() {
@@ -16,6 +23,13 @@ public class Vehicle {
         this.brand = brand;
         this.model = model;
     }
+
+    public Vehicle(String brand, String model, double pricePerDay) {
+        this.brand = brand;
+        this.model = model;
+        this.pricePerDay = pricePerDay;
+    }
+
     //endregion
 
     //region getter and setter
@@ -34,14 +48,27 @@ public class Vehicle {
     public void setModel(String model) {
         this.model = model;
     }
+
+    public double getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     //endregion
 
 
     @Override
     public String toString() {
-        return "Vehicle{" +
-                "brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                '}';
+        return String.format("%s %s (%f)", brand, model, pricePerDay);
     }
+
 }

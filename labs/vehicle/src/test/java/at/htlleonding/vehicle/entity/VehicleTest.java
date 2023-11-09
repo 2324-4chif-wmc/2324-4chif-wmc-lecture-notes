@@ -19,5 +19,7 @@ class VehicleTest {
         assertThat(opel.getBrand()).isEqualTo("Opel");
         assertThat(opel.getModel()).isEqualTo("Commodore");
 
+
+
     }
 }
