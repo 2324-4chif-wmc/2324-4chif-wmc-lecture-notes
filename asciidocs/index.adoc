@@ -780,4 +780,7 @@ https://github.com/marketplace/actions/publish-release
 
 == 2023-11-13
 
+image::schichtenmodell.png[]
+
+
 * Im Projekt Vehicle das Repository angelegt.
