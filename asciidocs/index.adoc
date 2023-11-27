@@ -782,6 +782,13 @@ https://github.com/marketplace/actions/publish-release
 
 image::schichtenmodell.png[]
 
+== 2023-11-20
+
+Wiederholung 3-Tier Architecture
+Testmethoden in der Praxis
+
+image::states-of-object.png[]
+
 
 * Im Projekt Vehicle das Repository angelegt.
 
