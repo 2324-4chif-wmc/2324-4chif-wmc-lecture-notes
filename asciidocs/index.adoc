@@ -813,5 +813,18 @@ image::states-of-object.png[]
 * https://www.objectdb.com/java/jpa/query/api[^]
 
 
+== 2023-12-07
+
+=== given-when-then
+
+* https://martinfowler.com/bliki/GivenWhenThen.html
+
+* https://www.objectdb.com/java/jpa/persistence/managed
+* https://www.objectdb.com/java/jpa/query/jpql/select
+
+
+
+
+
 
 

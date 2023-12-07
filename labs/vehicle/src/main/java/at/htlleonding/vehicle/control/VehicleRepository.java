@@ -3,11 +3,10 @@ package at.htlleonding.vehicle.control;
 import at.htlleonding.vehicle.entity.Vehicle;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 
 import java.util.List;
+
 
 @ApplicationScoped
 public class VehicleRepository {
@@ -42,8 +41,21 @@ public class VehicleRepository {
     }
 
     public List<Vehicle> findAllNamedQuery() {
+        TypedQuery<Vehicle> query = em.createNamedQuery("Vehicle.findAll", Vehicle.class);
+        return query.getResultList();
+    }
 
-        return null;
+    public List<Vehicle> findByBrandAndModelNamedQueryWithNamedParameters(
+            String brand,
+            String model
+    ) {
+        TypedQuery<Vehicle> query = em.createNamedQuery(
+                        "Vehicle.findByBrandAndModelNamedParameters",
+                        Vehicle.class
+                )
+                .setParameter("brand", brand)
+                .setParameter("model", model);
+        return query.getResultList();
     }
 
     public void flush() {

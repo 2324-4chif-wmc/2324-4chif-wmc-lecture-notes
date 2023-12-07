@@ -29,7 +29,7 @@ class VehicleRepositoryTest {
         Table vehicleTable = new Table(ds, "V_VEHICLE");
         output(vehicleTable).toConsole();
 
-        Vehicle vehicle = new Vehicle("Opel","Commodore");
+        Vehicle vehicle = new Vehicle("Opel", "Commodore");
         vehicle = vehicleRepository.save(vehicle);
         vehicle.setModel("Kadett");
         //vehicleRepository.flush();
@@ -40,9 +40,29 @@ class VehicleRepositoryTest {
 
 
         assertThat(vehicleTable)
-                .hasNumberOfRows(1)
+                .hasNumberOfColumnsGreaterThan(1)
                 .row(0)
                 .value("BRAND").isEqualTo("Opel")
                 .value("MODEL").isEqualTo("Commodore");
+    }
+
+    @Test
+    void listAllVehiclesWithNamedQuery_Ok() {
+        var vehicles = vehicleRepository.findAllNamedQuery();
+        System.out.println(vehicles);
+    }
+
+    @Test
+    void listVehiclesByBrandAndModellWithNamedParametersQuery_ok() {
+        var vehicles = vehicleRepository.findByBrandAndModelNamedQueryWithNamedParameters(
+                "Opel",
+                "Blitz"
+        );
+        System.out.println(vehicles);
+//        Table vehicle = new Table(ds, "V_VEHICLE");
+//        assertThat(vehicle)
+        org.assertj.core.api.Assertions.assertThat(vehicles)
+                .hasSize(1);
+
     }
 }

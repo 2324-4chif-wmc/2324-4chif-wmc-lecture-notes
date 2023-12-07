@@ -3,6 +3,16 @@ package at.htlleonding.vehicle.entity;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Vehicle.findAll",
+                query = "select v from Vehicle v"
+        ),
+        @NamedQuery(
+                name = "Vehicle.findByBrandAndModelNamedParameters",
+                query = "from Vehicle where brand = :brand and model = :model"
+        )
+})
 @Entity
 @Table(name = "V_VEHICLE")
 @XmlRootElement
