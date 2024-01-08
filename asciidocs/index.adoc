@@ -817,6 +817,11 @@ image::states-of-object.png[]
 
 === given-when-then
 
+* AAA-Pattern
+** arrange
+** act
+** assert
+
 * https://martinfowler.com/bliki/GivenWhenThen.html
 
 * https://www.objectdb.com/java/jpa/persistence/managed
@@ -824,6 +829,18 @@ image::states-of-object.png[]
 
 
 
+
+== 2023-12-18
+
+* Queries
+
+== 2024-01-08
+
+=== Panache
+
+* Boilerplate-Code
+
+image::panache-overview.png[]
 
 
 

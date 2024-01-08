@@ -62,4 +62,14 @@ public class VehicleRepository {
         em.flush();
     }
 
+    public List<Vehicle> findAllVehiclesNative() {
+        Query query = em.createNativeQuery(
+                """
+                  select ID, BRAND, MODEL, PRICE_PER_DAY
+                    from V_VEHICLE
+                  """, Vehicle.class);
+        return query.getResultList();
+    }
+
+
 }
