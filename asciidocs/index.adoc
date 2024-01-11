@@ -843,5 +843,71 @@ image::states-of-object.png[]
 image::panache-overview.png[]
 
 
+== 2024-01-11 - Android
+
+
+* https://developer.android.com/guide/components/activities/activity-lifecycle
+
+image::activity-lifecycle.png[]
+
+image::mvc.png[]
+
+* Projekt erstellen: Empty Activity mit Kotlin DSL
+
+* Device erstellen: Pixel 7
+
+* Breakpoint setzen
+
+* debuggen
+
+
+=== Reactive
+
+
+
+* https://rxjs.dev/
+
+* Ist ein sprachenunabhängiges Designkonzept
+
+
+
+* "Don't call us, we call you"
+
+* Die Rückgabe einer Funktion ist kein Int, String, ... sondern ein Versprechen (Promise).
+** In Java sind Promises die *Futures*
+
+
+* Warum asynchron?
+
+** https://en.wikipedia.org/wiki/Grand_Central_Terminal#/media/File:RailUS_GCT-lowerTracksPlan.gif
++
+image::central-station.png[]
+
+** Wenn ein Gleis belegt ist, wird ein paralleles Gleis benutzt
+
+** Wenn etwas länger als 1/24-Sekunde dauert, muss es in einen nebenläufigen Thread gespeichert werden, da sonst die GUI ruckelt.
+
+** vgl. Philosopher Problem
+
+** Callback-Hell
++
+image::callback-hell.png[]
+
+* siehe auch https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise[Promises in JS^]:
+
+
+* https://rxmarbles.com/#map
++
+image::marbles.png[]
+
+** Auf Observables werden OperatorFunctions (zB map) angewendet.
+
+
+
+
+
+
+
+
 
 
