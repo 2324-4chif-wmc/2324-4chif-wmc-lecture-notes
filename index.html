@@ -636,6 +636,11 @@ pre.rouge .gs {
 <li><a href="#_panache">18.1. Panache</a></li>
 </ul>
 </li>
+<li><a href="#_2024_01_11_android">19. 2024-01-11 - Android</a>
+<ul class="sectlevel2">
+<li><a href="#_reactive">19.1. Reactive</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2140,10 +2145,124 @@ Testmethoden in der Praxis</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2024_01_11_android"><a class="anchor" href="#_2024_01_11_android"></a>19. 2024-01-11 - Android</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.android.com/guide/components/activities/activity-lifecycle" class="bare">https://developer.android.com/guide/components/activities/activity-lifecycle</a></p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/activity-lifecycle.png" alt="activity lifecycle">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/mvc.png" alt="mvc">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Projekt erstellen: Empty Activity mit Kotlin DSL</p>
+</li>
+<li>
+<p>Device erstellen: Pixel 7</p>
+</li>
+<li>
+<p>Breakpoint setzen</p>
+</li>
+<li>
+<p>debuggen</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_reactive"><a class="anchor" href="#_reactive"></a>19.1. Reactive</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://rxjs.dev/" class="bare">https://rxjs.dev/</a></p>
+</li>
+<li>
+<p>Ist ein sprachenunabhängiges Designkonzept</p>
+</li>
+<li>
+<p>"Don&#8217;t call us, we call you"</p>
+</li>
+<li>
+<p>Die Rückgabe einer Funktion ist kein Int, String, &#8230;&#8203; sondern ein Versprechen (Promise).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In Java sind Promises die <strong>Futures</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Warum asynchron?</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Grand_Central_Terminal#/media/File:RailUS_GCT-lowerTracksPlan.gif" class="bare">https://en.wikipedia.org/wiki/Grand_Central_Terminal#/media/File:RailUS_GCT-lowerTracksPlan.gif</a></p>
+<div class="imageblock">
+<div class="content">
+<img src="images/central-station.png" alt="central station">
+</div>
+</div>
+</li>
+<li>
+<p>Wenn ein Gleis belegt ist, wird ein paralleles Gleis benutzt</p>
+</li>
+<li>
+<p>Wenn etwas länger als 1/24-Sekunde dauert, muss es in einen nebenläufigen Thread gespeichert werden, da sonst die GUI ruckelt.</p>
+</li>
+<li>
+<p>vgl. Philosopher Problem</p>
+</li>
+<li>
+<p>Callback-Hell</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/callback-hell.png" alt="callback hell">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>siehe auch <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promises in JS</a>:</p>
+</li>
+<li>
+<p><a href="https://rxmarbles.com/#map" class="bare">https://rxmarbles.com/#map</a></p>
+<div class="imageblock">
+<div class="content">
+<img src="images/marbles.png" alt="marbles">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Auf Observables werden OperatorFunctions (zB map) angewendet.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-01-08 10:48:40 UTC
+Last updated 2024-01-11 11:42:23 UTC
 </div>
 </div>
 </body>
