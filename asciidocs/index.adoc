@@ -585,7 +585,7 @@ person = jsonb.fromJson("{\"person_name\":\"Alice\"}", Person.class);
 
 Im folgenden Beispiel wird die @JsonbProperty-Annotation verwendet, um das Feld "name" in "person-name" umzubenennen, wenn das Objekt in JSON serialisiert wird.
 
-.Customizing with Annotations 
+.Customizing with Annotations
 [source,java]
 ----
 public class Person {
@@ -696,7 +696,7 @@ NOTE: @Context: Diese Annotation ermöglicht den Zugriff auf verschiedene Kontex
 
 === Web Application Exception
 
-Web Application Exceptions werden verwendet, damit der Code einfacher, sauberer und besser zu verstehen ist. Es ist sauberer eine `throw new ProductNotFoundException()` zu schreiben, als eine Response mit einem HTTP-Statuscode zu erstellen und erst später die Details des Fehlers herauszufinden. 
+Web Application Exceptions werden verwendet, damit der Code einfacher, sauberer und besser zu verstehen ist. Es ist sauberer eine `throw new ProductNotFoundException()` zu schreiben, als eine Response mit einem HTTP-Statuscode zu erstellen und erst später die Details des Fehlers herauszufinden.
 
 === Request- und Response-Filter
 
@@ -844,21 +844,48 @@ image::panache-overview.png[]
 
 
 == 2024-01-11 - Android
+_erweitert von Nell Paul_
 
-
-* https://developer.android.com/guide/components/activities/activity-lifecycle
-
-image::activity-lifecycle.png[]
-
-image::mvc.png[]
-
-* Projekt erstellen: Empty Activity mit Kotlin DSL
+=== Projekt erstellen: 
+** Empty Activity mit Kotlin DSL.
+** Hier ist wichtig, dass der Package-Name die richtige (eindeutige) Benennung hat, weil der Name beim Hochladen der App gebraucht wird (Bsp.: at.htl-leonding.myfirstapp).
+** Minimum Sdk: Auf welcher Android-Version soll die App mindestens laufen?
 
 * Device erstellen: Pixel 7
 
 * Breakpoint setzen
 
 * debuggen
+
+
+=== Jetpack Compose
+
+* Activity: Die Aktive Sicht der App, hat eine Lebensdauer (Activity-Lifecylce)
+
+* Main Thread: Kann keine asynchronen Vorgänge beinhalten. Eine ordentliche Architektur ist wichtig.
+
+* Activity-Lifecycle:
+- Activity Launch (Start): Ruft eine standardaktivität auf (weißes fenster, in app manifest (= Absichtserklärung)), wird schnell überladen
+- OnCreate: Erste Funktion die aufgerufen wird, wenn das Programm noch nicht läuft
+- Activity running: Fertig gestartete App => aktive activity
+- OnPause: Activity nicht mehr im Vordergrund - rennt noch im Hintergrund
+- OnStop: Activity wird gestoppt
+- App Process killed: Mehr Speicher wird freigemacht, durchs Neustarten, User merkt nichts
+- OnDestroy: App & Activity werden geschlossen
+- OnResume: Alte Activity wird geladen (im Hintergrund offen)
+- Alles mit On- ist ein Aufruf vom OS an uns (Keine funktionen mit On nennen, außer Button weil der call vom Main-Frame kommt)
+
+- Eine Activity hat eine View, die das Aussehen bestimmt
+
+https://developer.android.com/guide/components/activities/activity-lifecycle
+
+image::activity-lifecycle.png[]
+
+* Wiederholung: MVC-Pattern (Model, View, Controller)
+
+In dieser Grafik sehen wir, das MVC-Modell als "Straßenverkehr". View und Model dürfen durch die Sperrlinie nur mit dem Controller kommunizieren.
+
+image::mvc.png[]
 
 
 === Reactive
@@ -869,12 +896,14 @@ image::mvc.png[]
 
 * Ist ein sprachenunabhängiges Designkonzept
 
-
+==== Promisses
 
 * "Don't call us, we call you"
 
 * Die Rückgabe einer Funktion ist kein Int, String, ... sondern ein Versprechen (Promise).
 ** In Java sind Promises die *Futures*
+
+*** https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html
 
 
 * Warum asynchron?
@@ -890,7 +919,7 @@ image::central-station.png[]
 ** vgl. Philosopher Problem
 
 ** Callback-Hell
-+
+
 image::callback-hell.png[]
 
 * siehe auch https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise[Promises in JS^]:
@@ -901,13 +930,3 @@ image::callback-hell.png[]
 image::marbles.png[]
 
 ** Auf Observables werden OperatorFunctions (zB map) angewendet.
-
-
-
-
-
-
-
-
-
-
