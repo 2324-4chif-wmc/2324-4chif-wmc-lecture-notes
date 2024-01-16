@@ -638,7 +638,9 @@ pre.rouge .gs {
 </li>
 <li><a href="#_2024_01_11_android">19. 2024-01-11 - Android</a>
 <ul class="sectlevel2">
-<li><a href="#_reactive">19.1. Reactive</a></li>
+<li><a href="#_projekt_erstellen">19.1. Projekt erstellen:</a></li>
+<li><a href="#_jetpack_compose">19.2. Jetpack Compose</a></li>
+<li><a href="#_reactive">19.3. Reactive</a></li>
 </ul>
 </li>
 </ul>
@@ -2148,28 +2150,23 @@ Testmethoden in der Praxis</p>
 <div class="sect1">
 <h2 id="_2024_01_11_android"><a class="anchor" href="#_2024_01_11_android"></a>19. 2024-01-11 - Android</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><em>erweitert von Nell Paul</em></p>
+</div>
+<div class="sect2">
+<h3 id="_projekt_erstellen"><a class="anchor" href="#_projekt_erstellen"></a>19.1. Projekt erstellen:</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://developer.android.com/guide/components/activities/activity-lifecycle" class="bare">https://developer.android.com/guide/components/activities/activity-lifecycle</a></p>
+<p>Empty Activity mit Kotlin DSL.</p>
 </li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/activity-lifecycle.png" alt="activity lifecycle">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/mvc.png" alt="mvc">
-</div>
-</div>
+<li>
+<p>Hier ist wichtig, dass der Package-Name die richtige (eindeutige) Benennung hat, weil der Name beim Hochladen der App gebraucht wird (Bsp.: at.htl-leonding.myfirstapp).</p>
+</li>
+<li>
+<p>Minimum Sdk: Auf welcher Android-Version soll die App mindestens laufen?</p>
 <div class="ulist">
 <ul>
-<li>
-<p>Projekt erstellen: Empty Activity mit Kotlin DSL</p>
-</li>
 <li>
 <p>Device erstellen: Pixel 7</p>
 </li>
@@ -2181,8 +2178,85 @@ Testmethoden in der Praxis</p>
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
-<h3 id="_reactive"><a class="anchor" href="#_reactive"></a>19.1. Reactive</h3>
+<h3 id="_jetpack_compose"><a class="anchor" href="#_jetpack_compose"></a>19.2. Jetpack Compose</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Activity: Die Aktive Sicht der App, hat eine Lebensdauer (Activity-Lifecylce)</p>
+</li>
+<li>
+<p>Main Thread: Kann keine asynchronen Vorgänge beinhalten. Eine ordentliche Architektur ist wichtig.</p>
+</li>
+<li>
+<p>Activity-Lifecycle:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Activity Launch (Start): Ruft eine standardaktivität auf (weißes fenster, in app manifest (= Absichtserklärung)), wird schnell überladen</p>
+</li>
+<li>
+<p>OnCreate: Erste Funktion die aufgerufen wird, wenn das Programm noch nicht läuft</p>
+</li>
+<li>
+<p>Activity running: Fertig gestartete App &#8658; aktive activity</p>
+</li>
+<li>
+<p>OnPause: Activity nicht mehr im Vordergrund - rennt noch im Hintergrund</p>
+</li>
+<li>
+<p>OnStop: Activity wird gestoppt</p>
+</li>
+<li>
+<p>App Process killed: Mehr Speicher wird freigemacht, durchs Neustarten, User merkt nichts</p>
+</li>
+<li>
+<p>OnDestroy: App &amp; Activity werden geschlossen</p>
+</li>
+<li>
+<p>OnResume: Alte Activity wird geladen (im Hintergrund offen)</p>
+</li>
+<li>
+<p>Alles mit On- ist ein Aufruf vom OS an uns (Keine funktionen mit On nennen, außer Button weil der call vom Main-Frame kommt)</p>
+</li>
+<li>
+<p>Eine Activity hat eine View, die das Aussehen bestimmt</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://developer.android.com/guide/components/activities/activity-lifecycle" class="bare">https://developer.android.com/guide/components/activities/activity-lifecycle</a></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/activity-lifecycle.png" alt="activity lifecycle">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Wiederholung: MVC-Pattern (Model, View, Controller)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In dieser Grafik sehen wir, das MVC-Modell als "Straßenverkehr". View und Model dürfen durch die Sperrlinie nur mit dem Controller kommunizieren.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/mvc.png" alt="mvc">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reactive"><a class="anchor" href="#_reactive"></a>19.3. Reactive</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2191,6 +2265,12 @@ Testmethoden in der Praxis</p>
 <li>
 <p>Ist ein sprachenunabhängiges Designkonzept</p>
 </li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_promisses"><a class="anchor" href="#_promisses"></a>19.3.1. Promisses</h4>
+<div class="ulist">
+<ul>
 <li>
 <p>"Don&#8217;t call us, we call you"</p>
 </li>
@@ -2200,6 +2280,13 @@ Testmethoden in der Praxis</p>
 <ul>
 <li>
 <p>In Java sind Promises die <strong>Futures</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html" class="bare">https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html</a></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -2227,15 +2314,19 @@ Testmethoden in der Praxis</p>
 </li>
 <li>
 <p>Callback-Hell</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/callback-hell.png" alt="callback hell">
 </div>
 </div>
-</li>
-</ul>
-</div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>siehe auch <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promises in JS</a>:</p>
 </li>
@@ -2260,9 +2351,10 @@ Testmethoden in der Praxis</p>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-01-11 11:42:23 UTC
+Last updated 2024-01-16 09:46:29 UTC
 </div>
 </div>
 </body>
