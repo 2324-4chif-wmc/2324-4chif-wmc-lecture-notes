@@ -865,7 +865,7 @@ _erweitert von Nell Paul_
 * Main Thread: Kann keine asynchronen Vorgänge beinhalten. Eine ordentliche Architektur ist wichtig.
 
 * Activity-Lifecycle:
-- Activity Launch (Start): Ruft eine standardaktivität auf (weißes fenster, in app manifest (= Absichtserklärung)), wird schnell überladen
+- Activity Launch (Start): Ruft eine Standardaktivität auf (weißes Fenster, in app manifest (= Absichtserklärung)), wird schnell überladen
 - OnCreate: Erste Funktion die aufgerufen wird, wenn das Programm noch nicht läuft
 - Activity running: Fertig gestartete App => aktive activity
 - OnPause: Activity nicht mehr im Vordergrund - rennt noch im Hintergrund
@@ -873,7 +873,7 @@ _erweitert von Nell Paul_
 - App Process killed: Mehr Speicher wird freigemacht, durchs Neustarten, User merkt nichts
 - OnDestroy: App & Activity werden geschlossen
 - OnResume: Alte Activity wird geladen (im Hintergrund offen)
-- Alles mit On- ist ein Aufruf vom OS an uns (Keine funktionen mit On nennen, außer Button weil der call vom Main-Frame kommt)
+- Alles mit On- ist ein Aufruf vom OS an uns (Keine funktionen mit On nennen, außer Button, weil der call vom Main-Frame kommt)
 
 - Eine Activity hat eine View, die das Aussehen bestimmt
 
@@ -896,7 +896,7 @@ image::mvc.png[]
 
 * Ist ein sprachenunabhängiges Designkonzept
 
-==== Promisses
+==== Promises
 
 * "Don't call us, we call you"
 
