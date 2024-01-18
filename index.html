@@ -643,6 +643,12 @@ pre.rouge .gs {
 <li><a href="#_reactive">19.3. Reactive</a></li>
 </ul>
 </li>
+<li><a href="#_2024_01_18">20. 2024-01-18</a>
+<ul class="sectlevel2">
+<li><a href="#_di_dependency_injection">20.1. DI - Dependency Injection</a></li>
+<li><a href="#_design_prinzipien_für_design_von_user_interface_anwendungen">20.2. Design-Prinzipien für Design von User-Interface Anwendungen</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2351,10 +2357,120 @@ Testmethoden in der Praxis</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2024_01_18"><a class="anchor" href="#_2024_01_18"></a>20. 2024-01-18</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/caberger/android-scratch" class="bare">https://github.com/caberger/android-scratch</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_di_dependency_injection"><a class="anchor" href="#_di_dependency_injection"></a>20.1. DI - Dependency Injection</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>"new ist immer falsch", da wir den Kontext nicht mitbekommen.</p>
+</li>
+<li>
+<p>@ApplicationScoped oder dgl. bietet eine Klasse an, die mit</p>
+</li>
+<li>
+<p>@Inject angefordert werden kann.</p>
+</li>
+<li>
+<p>In Android wird "Hilt" verwendet</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.android.com/training/dependency-injection/hilt-android">DI mit Hilt</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kn">package</span> <span class="nn">at.ac.htl.myfirstapp.model</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.inject.Inject</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.inject.Singleton</span><span class="o">;</span>
+
+<span class="nd">@Singleton</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Store</span> <span class="o">{</span>
+
+    <span class="nd">@Inject</span>
+    <span class="nc">Store</span><span class="o">(){</span>
+
+    <span class="o">};</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hello World"</span><span class="o">;</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_design_prinzipien_für_design_von_user_interface_anwendungen"><a class="anchor" href="#_design_prinzipien_für_design_von_user_interface_anwendungen"></a>20.2. Design-Prinzipien für Design von User-Interface Anwendungen</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Single Source of Truth</p>
+</li>
+<li>
+<p>read-only state</p>
+</li>
+<li>
+<p>State-Änderungen nur duch pure (virtual) functions</p>
+<div class="ulist">
+<ul>
+<li>
+<p>pure-Functions: Der Rückgabewert einer puren Funktion hängt nur von den Eingangsparametern ab.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/android-rendering.png" alt="android rendering">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://rxjs.dev/guide/overview" class="bare">https://rxjs.dev/guide/overview</a></p>
+</li>
+<li>
+<p><a href="https://rxmarbles.com/#map" class="bare">https://rxmarbles.com/#map</a></p>
+</li>
+<li>
+<p>Observables</p>
+<div class="ulist">
+<ul>
+<li>
+<p>kalt: schicken nur Daten, wenn Observer vorhanden</p>
+</li>
+<li>
+<p>warm: schicken immer Daten</p>
+</li>
+<li>
+<p>BehaviourObservables: nur der letzte Wert wird kopiert</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-01-16 15:34:43 UTC
+Last updated 2024-01-18 12:29:30 UTC
 </div>
 </div>
 </body>
