@@ -930,3 +930,63 @@ image::callback-hell.png[]
 image::marbles.png[]
 
 ** Auf Observables werden OperatorFunctions (zB map) angewendet.
+
+
+== 2024-01-18
+
+* https://github.com/caberger/android-scratch
+
+
+=== DI - Dependency Injection
+
+* "new ist immer falsch", da wir den Kontext nicht mitbekommen.
+
+* @ApplicationScoped oder dgl. bietet eine Klasse an, die mit
+
+* @Inject angefordert werden kann.
+
+* In Android wird "Hilt" verwendet
+** https://developer.android.com/training/dependency-injection/hilt-android[DI mit Hilt]
+
+
+[source,java]
+----
+package at.ac.htl.myfirstapp.model;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
+public class Store {
+
+    @Inject
+    Store(){
+
+    };
+    public String greeting = "Hello World";
+}
+----
+
+
+=== Design-Prinzipien für Design von User-Interface Anwendungen
+
+. Single Source of Truth
+. read-only state
+. State-Änderungen nur duch pure (virtual) functions
+
+* pure-Functions: Der Rückgabewert einer puren Funktion hängt nur von den Eingangsparametern ab.
+
+image::android-rendering.png[]
+
+
+* https://rxjs.dev/guide/overview
+* https://rxmarbles.com/#map
+
+* Observables
+** kalt: schicken nur Daten, wenn Observer vorhanden
+** warm: schicken immer Daten
+** BehaviourObservables: nur der letzte Wert wird kopiert
+
+
+
+
