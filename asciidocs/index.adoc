@@ -987,6 +987,10 @@ image::android-rendering.png[]
 ** warm: schicken immer Daten
 ** BehaviourObservables: nur der letzte Wert wird kopiert
 
+== 2024-02-15
 
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/s_o8dwzRlu4?si=H6C5zQp6Mxv0bsI-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+++++
 
 
