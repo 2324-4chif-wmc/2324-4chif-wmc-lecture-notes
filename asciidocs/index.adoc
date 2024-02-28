@@ -1034,7 +1034,7 @@ wenn man eine neue Klasse erstellt kann man im manifest diese Klasse angeben, da
 
 - Eine Klasse erstellen und darüber "@Singleton" schreiben, die klasse können wir dann injecten
 
-- wenn wir dann properties in der singleton kallse machen und in einer anderen ein @Inject machen und ein object mit der klasse anlegen können wir auf die properties zugreifen, wichtig in der singleton klassen muss auch ein @inject über dem konstruktor stehen und es muss @AndroidEnteryPoint über der klasse wo man dependency injecten will stehen
+- wenn wir dann properties in der Singleton Klasse machen und in einer anderen ein @Inject machen und ein object mit der klasse anlegen, können wir auf die properties zugreifen. Wichtig: in der Singleton Klasse muss auch ein @Inject über dem Konstruktor stehen und es muss @AndroidEntryPoint über der Klasse, wo man dependency injecten will, stehen
 
 === Prinzipien für ui design (coke and pepsi):
 
