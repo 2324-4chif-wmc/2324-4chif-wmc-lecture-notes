@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.21">
 <link rel="icon" type="image/png" href="themes/favicon.png">
 <title>23/24 - 4chif - wmc - Lecture Notes</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -141,7 +141,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -163,6 +163,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +329,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -649,7 +650,18 @@ pre.rouge .gs {
 <li><a href="#_design_prinzipien_für_design_von_user_interface_anwendungen">20.2. Design-Prinzipien für Design von User-Interface Anwendungen</a></li>
 </ul>
 </li>
-<li><a href="#_2024_02_15">21. 2024-02-15</a></li>
+<li><a href="#_leon_leeb_android_mitschrift_18_1_24">21. Leon Leeb - Android - Mitschrift 18.1.24</a>
+<ul class="sectlevel2">
+<li><a href="#_dependency_injection">21.1. Dependency injection:</a></li>
+<li><a href="#_hilt_dependency_injection_für_android">21.2. Hilt dependency injection für android:</a></li>
+<li><a href="#_manifest">21.3. Manifest:</a></li>
+<li><a href="#_annotations">21.4. Annotations:</a></li>
+<li><a href="#_prinzipien_für_ui_design_coke_and_pepsi">21.5. Prinzipien für ui design (coke and pepsi):</a></li>
+<li><a href="#_shallow_vs_deep_copy">21.6. Shallow vs Deep copy:</a></li>
+<li><a href="#_observabel">21.7. Observabel:</a></li>
+<li><a href="#_bei_unserer_android_app">21.8. Bei unserer Android App:</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2469,15 +2481,159 @@ Testmethoden in der Praxis</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_2024_02_15"><a class="anchor" href="#_2024_02_15"></a>21. 2024-02-15</h2>
+<h2 id="_leon_leeb_android_mitschrift_18_1_24"><a class="anchor" href="#_leon_leeb_android_mitschrift_18_1_24"></a>21. Leon Leeb - Android - Mitschrift 18.1.24</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_dependency_injection"><a class="anchor" href="#_dependency_injection"></a>21.1. Dependency injection:</h3>
+<div class="paragraph">
+<p>"new" ist immer flasch, dann kriegen wir den kontext nicht mit
+wir verlassen uns auf unseren container, der macht das für uns wir sagen nur @Applicationscoped und er erstellt das object wenns das erste mal injected wird, wenn vorhanden gibt er uns das vorhandene object</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hilt_dependency_injection_für_android"><a class="anchor" href="#_hilt_dependency_injection_für_android"></a>21.2. Hilt dependency injection für android:</h3>
+<div class="sect3">
+<h4 id="_plugins"><a class="anchor" href="#_plugins"></a>21.2.1. Plugins:</h4>
+<div class="literalblock">
+<div class="content">
+<pre>im project gradle:
+plugins {
+  id("com.google.dagger.hilt.android") version "2.44" apply false
+}
+
+im module gradle:
+plugins {
+  kotlin("kapt")
+  id("com.google.dagger.hilt.android")
+}
+
+dependencies {
+  implementation("com.google.dagger:hilt-android:2.44")
+  kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+
+kapt {
+  correctErrorTypes = true
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_manifest"><a class="anchor" href="#_manifest"></a>21.3. Manifest:</h3>
+<div class="paragraph">
+<p>Im manifest steht alles drin was die app können soll,
+wenn man eine neue klasse erstellt kann man im manifest diese klasse angeben, dann fängt er mit der an und nicht mit der standard application
+- (mit 'android:name="ac.htl.className"')</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_annotations"><a class="anchor" href="#_annotations"></a>21.4. Annotations:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Die annotation "@HiltAndroidApp" muss über der klasse stehen</p>
+</li>
+<li>
+<p>Eine klasse erstellen und darüber "@Singleton" schreiben, die klasse können wir dann injecten</p>
+</li>
+<li>
+<p>wenn wir dann properties in der singleton kallse machen und in einer anderen ein @Inject machen und ein object mit der klasse anlegen können wir auf die properties zugreifen, wichtig in der singleton klassen muss auch ein @inject über dem konstruktor stehen und es muss @AndroidEnteryPoint über der klasse wo man dependency injecten will stehen</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prinzipien_für_ui_design_coke_and_pepsi"><a class="anchor" href="#_prinzipien_für_ui_design_coke_and_pepsi"></a>21.5. Prinzipien für ui design (coke and pepsi):</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>single source of truth</p>
+<div class="ulist">
+<ul>
+<li>
+<p>nur eine klasse für design, in der steht aber alles übers design drinnen</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>read only state</p>
+<div class="ulist">
+<ul>
+<li>
+<p>wir müssen ein datenmodell finden das so minimal wie möglich ist aber so komplex wie nötig</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>state - änderung nur durch pure function</p>
+<div class="ulist">
+<ul>
+<li>
+<p>pure function ist eine function wo die ausgabe nur von den parametern abhängt</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_shallow_vs_deep_copy"><a class="anchor" href="#_shallow_vs_deep_copy"></a>21.6. Shallow vs Deep copy:</h3>
+<div class="paragraph">
+<p>Bei einer shallow copy werden einfach nur die obersten daten kopiert, bei einer deep kopie auch alles was dranhängt, (das oberste ist meinstens ein pointer auf das object)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_observabel"><a class="anchor" href="#_observabel"></a>21.7. Observabel:</h3>
+<div class="paragraph">
+<p>Obervable ist eine Achitektur wo jedes mal die Liste der zu observierenden Daten durchlaufen wird wenn etwas dazu kommt</p>
+</div>
+<div class="sect3">
+<h4 id="_rxjava_extension_in_der_module_gradle"><a class="anchor" href="#_rxjava_extension_in_der_module_gradle"></a>21.7.1. rxJava extension (in der module gradle):</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>reactive rx java 3</p>
+</li>
+<li>
+<p>androidx compose runtime</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bei_unserer_android_app"><a class="anchor" href="#_bei_unserer_android_app"></a>21.8. Bei unserer Android App:</h3>
+<div class="paragraph">
+<p>Da das model nur read only ist erstllen wir keine klasse sondern einen record</p>
+</div>
+<div class="paragraph">
+<p>In dem singleton machen wir dann ein "BehaviorSubject&lt;Model&gt;"</p>
+</div>
+<div class="sect3">
+<h4 id="_was_ist_ein_behaviorsubject"><a class="anchor" href="#_was_ist_ein_behaviorsubject"></a>21.8.1. Was ist ein behaviorSubject?</h4>
+<div class="paragraph">
+<p>Unsere models gehen durch das behaviorSubject, es beobachtet die models und gibt das letzte aus wenn sich etwas ändert</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>== 2024-02-15</p>
+</div>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/s_o8dwzRlu4?si=H6C5zQp6Mxv0bsI-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-02-15 16:39:37 UTC
+Last updated 2024-02-28 08:28:44 UTC
 </div>
 </div>
 </body>
