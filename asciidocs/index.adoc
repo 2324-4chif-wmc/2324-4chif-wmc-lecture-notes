@@ -987,6 +987,7 @@ image::android-rendering.png[]
 ** warm: schicken immer Daten
 ** BehaviourObservables: nur der letzte Wert wird kopiert
 
+
 Leon Leeb - Android - Mitschrift 18.1.24
 ----------------------------------------
 
@@ -1069,6 +1070,12 @@ Was ist ein behaviorSubject?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Unsere models gehen durch das behaviorSubject, es beobachtet die models und gibt das letzte aus wenn sich etwas ändert
 
+=======
+== 2024-02-15
 
+
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/s_o8dwzRlu4?si=H6C5zQp6Mxv0bsI-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+++++
 
 
