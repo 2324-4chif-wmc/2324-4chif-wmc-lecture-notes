@@ -988,20 +988,19 @@ image::android-rendering.png[]
 ** BehaviourObservables: nur der letzte Wert wird kopiert
 
 
-Leon Leeb - Android - Mitschrift 18.1.24
-----------------------------------------
+== 2024-01-24 - Android
+_Mitschrift Leon Leeb_
 
-Dependency injection:
-~~~~~~~~~~~~~~~~~~~~~
-"new" ist immer flasch, dann kriegen wir den kontext nicht mit
+=== Dependency injection:
+
+"new" ist immer falsch, dann kriegen wir den kontext nicht mit
 wir verlassen uns auf unseren container, der macht das für uns wir sagen nur @Applicationscoped und er erstellt das object wenns das erste mal injected wird, wenn vorhanden gibt er uns das vorhandene object
 
-Hilt dependency injection für android:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==== Hilt dependency injection für android:
 
 Plugins:
-^^^^^^^^
-....
+
+----
 im project gradle:
 plugins {
   id("com.google.dagger.hilt.android") version "2.44" apply false
@@ -1021,56 +1020,60 @@ dependencies {
 kapt {
   correctErrorTypes = true
 }
-....
+----
 
-Manifest:
-~~~~~~~~~
+==== Manifest:
+
 Im manifest steht alles drin was die app können soll,
-wenn man eine neue klasse erstellt kann man im manifest diese klasse angeben, dann fängt er mit der an und nicht mit der standard application
+wenn man eine neue Klasse erstellt kann man im manifest diese klasse angeben, dann fängt er mit der an und nicht mit der standard application
 - (mit 'android:name="ac.htl.className"')
 
 
-Annotations:
-~~~~~~~~~~~~
-- Die annotation "@HiltAndroidApp" muss über der klasse stehen
+==== Annotations:
+
+- Die Annotation "@HiltAndroidApp" muss über der klasse stehen
 
 - Eine klasse erstellen und darüber "@Singleton" schreiben, die klasse können wir dann injecten
 
 - wenn wir dann properties in der singleton kallse machen und in einer anderen ein @Inject machen und ein object mit der klasse anlegen können wir auf die properties zugreifen, wichtig in der singleton klassen muss auch ein @inject über dem konstruktor stehen und es muss @AndroidEnteryPoint über der klasse wo man dependency injecten will stehen
 
-Prinzipien für ui design (coke and pepsi):
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. single source of truth
+=== Prinzipien für ui design (coke and pepsi):
+
+. single source of truth
  - nur eine klasse für design, in der steht aber alles übers design drinnen
-2. read only state
+. read only state
  - wir müssen ein datenmodell finden das so minimal wie möglich ist aber so komplex wie nötig
-3. state - änderung nur durch pure function
- - pure function ist eine function wo die ausgabe nur von den parametern abhängt
+. state - änderung nur durch pure function
+ - pure function ist eine function wo die Ausgabe nur von den parametern abhängt
 
-Shallow vs Deep copy:
-~~~~~~~~~~~~~~~~~~~~~
-Bei einer shallow copy werden einfach nur die obersten daten kopiert, bei einer deep kopie auch alles was dranhängt, (das oberste ist meinstens ein pointer auf das object)
+=== Shallow vs Deep copy:
 
-Observabel:
-~~~~~~~~~~~
-Obervable ist eine Achitektur wo jedes mal die Liste der zu observierenden Daten durchlaufen wird wenn etwas dazu kommt
+Bei einer shallow copy werden einfach nur die obersten Werte kopiert, bei einer deep kopie auch alles, was referenziert wird, (das oberste ist meistens ein pointer auf ein object)
 
-rxJava extension (in der module gradle):
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-- reactive rx java 3
+=== Observable:
+
+Obervable ist eine Architektur wo jedes Mal die Liste der zu observierenden Daten durchlaufen wird, wenn etwas dazu kommt
+
+image::event-loop.png[]
+
+(source: Modernizing Enterprise Java, M. Eisele and N. Vinto, 2022, O'Reilly, S.33)
+
+==== RxJava extension (in der module gradle):
+
+- reactive Rxjava 3
 - androidx compose runtime
 
-Bei unserer Android App:
-~~~~~~~~~~~~~~~~~~~~~~~~
-Da das model nur read only ist erstllen wir keine klasse sondern einen record
+==== Bei unserer Android App:
 
-In dem singleton machen wir dann ein "BehaviorSubject<Model>"
+* Da das model nur read only ist erstellen wir keine Klasse, sondern einen Record.
 
-Was ist ein behaviorSubject?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Unsere models gehen durch das behaviorSubject, es beobachtet die models und gibt das letzte aus wenn sich etwas ändert
+* In dem singleton machen wir dann ein "BehaviorSubject<Model>"
 
-=======
+==== Was ist ein behaviorSubject?
+
+Unsere models gehen durch das behaviorSubject, es beobachtet die models und gibt den letzten Wert aus, wenn sich etwas ändert
+
+
 == 2024-02-15
 
 
