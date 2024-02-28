@@ -994,7 +994,7 @@ _Mitschrift Leon Leeb_
 === Dependency injection:
 
 "new" ist immer falsch, dann kriegen wir den kontext nicht mit
-wir verlassen uns auf unseren container, der macht das für uns wir sagen nur @Applicationscoped und er erstellt das object wenns das erste mal injected wird, wenn vorhanden gibt er uns das vorhandene object
+wir verlassen uns auf unseren DI-Container, der macht das für uns. Wir markieren die Klasse mit @ApplicationScoped (oder einem anderen Scope) und der DI-Container erstellt das Objekt wenns es das erste Mal injected wird. Falls vorhanden gibt er uns das vorhandene Objekt
 
 ==== Hilt dependency injection für android:
 
@@ -1024,16 +1024,15 @@ kapt {
 
 ==== Manifest:
 
-Im manifest steht alles drin was die app können soll,
-wenn man eine neue Klasse erstellt kann man im manifest diese klasse angeben, dann fängt er mit der an und nicht mit der standard application
-- (mit 'android:name="ac.htl.className"')
+Im manifest steht alles drin, was die app können soll,
+wenn man eine neue Klasse erstellt kann man im manifest diese Klasse angeben, dann wird die beim Programmstart ausgeführt und nicht die mit der standard application (mit `android:name="ac.htl.className"`)
 
 
 ==== Annotations:
 
 - Die Annotation "@HiltAndroidApp" muss über der klasse stehen
 
-- Eine klasse erstellen und darüber "@Singleton" schreiben, die klasse können wir dann injecten
+- Eine Klasse erstellen und darüber "@Singleton" schreiben, die klasse können wir dann injecten
 
 - wenn wir dann properties in der singleton kallse machen und in einer anderen ein @Inject machen und ein object mit der klasse anlegen können wir auf die properties zugreifen, wichtig in der singleton klassen muss auch ein @inject über dem konstruktor stehen und es muss @AndroidEnteryPoint über der klasse wo man dependency injecten will stehen
 
