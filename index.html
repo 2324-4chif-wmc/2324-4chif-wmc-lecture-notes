@@ -2487,7 +2487,7 @@ Testmethoden in der Praxis</p>
 <h3 id="_dependency_injection"><a class="anchor" href="#_dependency_injection"></a>21.1. Dependency injection:</h3>
 <div class="paragraph">
 <p>"new" ist immer falsch, dann kriegen wir den kontext nicht mit
-wir verlassen uns auf unseren container, der macht das für uns wir sagen nur @Applicationscoped und er erstellt das object wenns das erste mal injected wird, wenn vorhanden gibt er uns das vorhandene object</p>
+wir verlassen uns auf unseren DI-Container, der macht das für uns. Wir markieren die Klasse mit @ApplicationScoped (oder einem anderen Scope) und der DI-Container erstellt das Objekt wenns es das erste Mal injected wird. Falls vorhanden gibt er uns das vorhandene Objekt</p>
 </div>
 <div class="sect3">
 <h4 id="_hilt_dependency_injection_für_android"><a class="anchor" href="#_hilt_dependency_injection_für_android"></a>21.1.1. Hilt dependency injection für android:</h4>
@@ -2521,9 +2521,8 @@ kapt {
 <div class="sect3">
 <h4 id="_manifest"><a class="anchor" href="#_manifest"></a>21.1.2. Manifest:</h4>
 <div class="paragraph">
-<p>Im manifest steht alles drin was die app können soll,
-wenn man eine neue Klasse erstellt kann man im manifest diese klasse angeben, dann fängt er mit der an und nicht mit der standard application
-- (mit 'android:name="ac.htl.className"')</p>
+<p>Im manifest steht alles drin, was die app können soll,
+wenn man eine neue Klasse erstellt kann man im manifest diese Klasse angeben, dann wird die beim Programmstart ausgeführt und nicht die mit der standard application (mit <code>android:name="ac.htl.className"</code>)</p>
 </div>
 </div>
 <div class="sect3">
@@ -2534,7 +2533,7 @@ wenn man eine neue Klasse erstellt kann man im manifest diese klasse angeben, da
 <p>Die Annotation "@HiltAndroidApp" muss über der klasse stehen</p>
 </li>
 <li>
-<p>Eine klasse erstellen und darüber "@Singleton" schreiben, die klasse können wir dann injecten</p>
+<p>Eine Klasse erstellen und darüber "@Singleton" schreiben, die klasse können wir dann injecten</p>
 </li>
 <li>
 <p>wenn wir dann properties in der singleton kallse machen und in einer anderen ein @Inject machen und ein object mit der klasse anlegen können wir auf die properties zugreifen, wichtig in der singleton klassen muss auch ein @inject über dem konstruktor stehen und es muss @AndroidEnteryPoint über der klasse wo man dependency injecten will stehen</p>
@@ -2643,7 +2642,7 @@ wenn man eine neue Klasse erstellt kann man im manifest diese klasse angeben, da
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-02-28 12:09:38 UTC
+Last updated 2024-02-28 14:25:49 UTC
 </div>
 </div>
 </body>
