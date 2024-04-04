@@ -1189,6 +1189,7 @@ https://angular.io/guide/change-detection
 *** https://immerjs.github.io/immer/
 ** ngBootstrap
 
+image::behaviour-subject.png[]
 
 
 
