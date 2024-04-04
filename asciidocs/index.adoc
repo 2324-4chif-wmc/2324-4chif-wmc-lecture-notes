@@ -1171,6 +1171,16 @@ image::rx-observables.png[]
 
 
 
-==
+== 2024-04-04 Reactive in Angular
 
 https://immerjs.github.io/immer/
+
+* Angular: Signal
+* Android: MutableStateFlow
+* Swift: @ObservedObject
+* React:
+* Flutter:
+
+
+
+https://angular.io/guide/change-detection

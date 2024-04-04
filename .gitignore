@@ -38,3 +38,5 @@ docs/slides/revealjs
 .idea/
 *.jar
 *.zip
+
+node_modules/
