@@ -1094,3 +1094,76 @@ image::single-source-of-truth.png[]
 image::clone.png[]
 
 
+== 2024-03-21
+
+image::single-source-of-truth.png[]
+
+image::view-model.png[]
+
+image::behavior-subject.png[]
+
+image::rx-observables.png[]
+
+=== Prinzipen
+
+* https://redux.js.org/understanding/thinking-in-redux/three-principles
+
+** Single-Source-Of-Truth
+** read-only state
+*** deep clone of the model
+** veränderbar nur durch pure-function
+*** hat keine Seiteneffekte
+*** der Funktionswert bestimmt sich nur durch die Parameter
+
+
+
+
+=== State and Jetpack Compose
+
+* https://developer.android.com/jetpack/compose/state[^]
+
+++++
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mymWGMy9pYI?si=FyJcSDGSALbkCZrh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+++++
+
+=== ViewModelProvider
+
+* Ist bei Verwendung eines BehaviorSubjects obsolet
+
+* https://developer.android.com/reference/android/arch/lifecycle/ViewModelProvider[ViewModelProviders^]
+
+=== MutableLiveData
+
+* Ist bei Verwendung eines BehaviorSubjects obsolet
+
+* https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData[MutableLiveData^]
+
+=== Promise
+
+* promise … (Versprechen)
+** Der return-Wert einer Funktion ist noch nicht vorhanden, aber er ist versprochen (in Java "Future")
+** bei await würde ich blocken. Das will ich nicht daher erstelle ich eine Kette von Funktionen
+** zB Sensor sendet Wert (Fahrenheit) -> Umrechnung in Grad Celsius -> formatierter String
+
+* Subject ist eine Erweiterung einer Observablen
+
+** mit onNext (oder next) wird ein Wert (Marble) in das BehaviorSubject (Röhre) geschickt
+** Ein *State* übersetzt einen Wert des BehaviorSubjects (RxJava) in die Welt von Jetpack Compose
+
+* https://rxjs.dev/guide/observable[Observable^]
+
+* https://rxjs.dev/guide/subject[Subject]
+
+
+== Compose
+
+* dp ... device points, Vielfaches von mm
+* sp ... für Text / Schrift
+
+
+== MQTT
+
+* Broker (Verteiler) Mosquitto
+
+* https://www.youtube.com/watch?v=SslVWiX8P2A
+* https://www.youtube.com/watch?v=dTTfygU61_E
