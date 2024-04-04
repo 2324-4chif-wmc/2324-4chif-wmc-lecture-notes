@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.21">
+<meta name="generator" content="Asciidoctor 2.0.22">
 <link rel="icon" type="image/png" href="themes/favicon.png">
 <title>23/24 - 4chif - wmc - Lecture Notes</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -660,6 +660,17 @@ pre.rouge .gs {
 </li>
 <li><a href="#_2024_02_15">22. 2024-02-15</a></li>
 <li><a href="#_2024_03_18">23. 2024-03-18</a></li>
+<li><a href="#_2024_03_21">24. 2024-03-21</a>
+<ul class="sectlevel2">
+<li><a href="#_prinzipen">24.1. Prinzipen</a></li>
+<li><a href="#_state_and_jetpack_compose">24.2. State and Jetpack Compose</a></li>
+<li><a href="#_viewmodelprovider">24.3. ViewModelProvider</a></li>
+<li><a href="#_mutablelivedata">24.4. MutableLiveData</a></li>
+<li><a href="#_promise">24.5. Promise</a></li>
+</ul>
+</li>
+<li><a href="#_compose">25. Compose</a></li>
+<li><a href="#_mqtt">26. MQTT</a></li>
 </ul>
 </div>
 </div>
@@ -2659,10 +2670,193 @@ wenn man eine neue Klasse erstellt kann man im manifest diese Klasse angeben, da
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2024_03_21"><a class="anchor" href="#_2024_03_21"></a>24. 2024-03-21</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/single-source-of-truth.png" alt="single source of truth">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/view-model.png" alt="view model">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/behavior-subject.png" alt="behavior subject">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/rx-observables.png" alt="rx observables">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prinzipen"><a class="anchor" href="#_prinzipen"></a>24.1. Prinzipen</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://redux.js.org/understanding/thinking-in-redux/three-principles" class="bare">https://redux.js.org/understanding/thinking-in-redux/three-principles</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Single-Source-Of-Truth</p>
+</li>
+<li>
+<p>read-only state</p>
+<div class="ulist">
+<ul>
+<li>
+<p>deep clone of the model</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>veränderbar nur durch pure-function</p>
+<div class="ulist">
+<ul>
+<li>
+<p>hat keine Seiteneffekte</p>
+</li>
+<li>
+<p>der Funktionswert bestimmt sich nur durch die Parameter</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_state_and_jetpack_compose"><a class="anchor" href="#_state_and_jetpack_compose"></a>24.2. State and Jetpack Compose</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.android.com/jetpack/compose/state" class="bare" target="_blank" rel="noopener">https://developer.android.com/jetpack/compose/state</a></p>
+</li>
+</ul>
+</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mymWGMy9pYI?si=FyJcSDGSALbkCZrh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<div class="sect2">
+<h3 id="_viewmodelprovider"><a class="anchor" href="#_viewmodelprovider"></a>24.3. ViewModelProvider</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Ist bei Verwendung eines BehaviorSubjects obsolet</p>
+</li>
+<li>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModelProvider" target="_blank" rel="noopener">ViewModelProviders</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mutablelivedata"><a class="anchor" href="#_mutablelivedata"></a>24.4. MutableLiveData</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Ist bei Verwendung eines BehaviorSubjects obsolet</p>
+</li>
+<li>
+<p><a href="https://developer.android.com/reference/android/arch/lifecycle/MutableLiveData" target="_blank" rel="noopener">MutableLiveData</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_promise"><a class="anchor" href="#_promise"></a>24.5. Promise</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>promise … (Versprechen)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Der return-Wert einer Funktion ist noch nicht vorhanden, aber er ist versprochen (in Java "Future")</p>
+</li>
+<li>
+<p>bei await würde ich blocken. Das will ich nicht daher erstelle ich eine Kette von Funktionen</p>
+</li>
+<li>
+<p>zB Sensor sendet Wert (Fahrenheit) &#8594; Umrechnung in Grad Celsius &#8594; formatierter String</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Subject ist eine Erweiterung einer Observablen</p>
+<div class="ulist">
+<ul>
+<li>
+<p>mit onNext (oder next) wird ein Wert (Marble) in das BehaviorSubject (Röhre) geschickt</p>
+</li>
+<li>
+<p>Ein <strong>State</strong> übersetzt einen Wert des BehaviorSubjects (RxJava) in die Welt von Jetpack Compose</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://rxjs.dev/guide/observable" target="_blank" rel="noopener">Observable</a></p>
+</li>
+<li>
+<p><a href="https://rxjs.dev/guide/subject">Subject</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_compose"><a class="anchor" href="#_compose"></a>25. Compose</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>dp &#8230;&#8203; device points, Vielfaches von mm</p>
+</li>
+<li>
+<p>sp &#8230;&#8203; für Text / Schrift</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mqtt"><a class="anchor" href="#_mqtt"></a>26. MQTT</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Broker (Verteiler) Mosquitto</p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=SslVWiX8P2A" class="bare">https://www.youtube.com/watch?v=SslVWiX8P2A</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=dTTfygU61_E" class="bare">https://www.youtube.com/watch?v=dTTfygU61_E</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>==</p>
+</div>
+<div class="paragraph">
+<p><a href="https://immerjs.github.io/immer/" class="bare">https://immerjs.github.io/immer/</a></p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-18 19:27:29 UTC
+Last updated 2024-04-04 10:01:57 UTC
 </div>
 </div>
 </body>
