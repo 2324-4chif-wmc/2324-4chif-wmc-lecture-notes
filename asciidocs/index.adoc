@@ -1191,5 +1191,25 @@ https://angular.io/guide/change-detection
 
 image::behaviour-subject.png[]
 
+.shell commandos für angular bsp
+----
+npm -v
+mkdir ng-demo
+cd ng-demo
+npm init -y
+npm install @angular/cli
+npx ng new ng-demo
+npm start
+cd ng-demo
+npm start
+cd labs/ng-demo/ng-demo
+webstorm .
+npx ng g c components/hello
+npm start
+npx ng g s services/store
+npm install immer
+npm start
+npx ng g c components/logger
+----
 
 
