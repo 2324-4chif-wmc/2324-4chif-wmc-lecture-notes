@@ -82,4 +82,7 @@ public class Vehicle {
         return String.format("%s %s (%f)", brand, model, pricePerDay);
     }
 
+    public VehicleDto toDto() {
+        return new VehicleDto(id, brand, model, pricePerDay);
+    }
 }

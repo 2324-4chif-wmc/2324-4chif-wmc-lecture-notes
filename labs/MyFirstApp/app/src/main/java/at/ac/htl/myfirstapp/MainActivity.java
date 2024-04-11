@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import at.ac.htl.myfirstapp.model.Model;
 import at.ac.htl.myfirstapp.model.Store;
 import at.ac.htl.myfirstapp.ui.layout.MainViewCreator;
+import at.ac.htl.ui.layout.MainView;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -24,17 +25,16 @@ public class MainActivity extends ComponentActivity {
     Store store;
 
     @Inject
-    MainViewCreator mainView;
-
+    MainView mainView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        var model = new Model("Hallo ");
-        store.subject.onNext(model);
-
-        Log.i(TAG, String.format("onCreate() %s", store.greeting));
         mainView.setContentView(this);
+
+        store.set(model -> model.greeting = "mit consumer");
+        var s2 = store.subject
+                .map(model -> model.greeting.toUpperCase())
+                .subscribe(text -> Log.i(TAG, text));
     }
 
     @Override

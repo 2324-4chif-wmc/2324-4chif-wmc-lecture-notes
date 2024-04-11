@@ -14,7 +14,9 @@ export class LoggerComponent implements OnInit {
 
   ngOnInit() {
     this.store
-      .pipe(map(model => model.name), distinctUntilChanged())
-      .subscribe(name => console.log("name changed ", name))
+      .pipe(map(model => model.name),
+        distinctUntilChanged())
+      .subscribe(name =>
+        console.log("name changed ", name))
   }
 }

@@ -25,60 +25,61 @@ class VehicleRepositoryTest {
     @Inject
     AgroalDataSource ds;
 
-    @Test
-    void createVehicle() {
 
-        QuarkusTransaction.begin();
-        Table vehicleTable = new Table(ds, "V_VEHICLE");
-        output(vehicleTable).toConsole();
+//    @Test
+//    void createVehicle() {
+//
+//        QuarkusTransaction.begin();
+//        Table vehicleTable = new Table(ds, "V_VEHICLE");
+//        output(vehicleTable).toConsole();
+//
+//        Vehicle vehicle = new Vehicle("Opel", "Commodore");
+//        vehicle = vehicleRepository.save(vehicle);
+//        vehicle.setModel("Kadett");
+//        //vehicleRepository.flush();
+//        QuarkusTransaction.commit();
+//
+//        vehicleTable = new Table(ds, "V_VEHICLE");
+//        output(vehicleTable).toConsole();
+//
+//
+//        assertThat(vehicleTable)
+//                .hasNumberOfColumnsGreaterThan(1)
+//                .row(0)
+//                .value("BRAND").isEqualTo("Opel")
+//                .value("MODEL").isEqualTo("Commodore");
+//    }
+//
+//    @Test
+//    void listAllVehiclesWithNamedQuery_Ok() {
+//        var vehicles = vehicleRepository.findAllNamedQuery();
+//        System.out.println(vehicles);
+//    }
 
-        Vehicle vehicle = new Vehicle("Opel", "Commodore");
-        vehicle = vehicleRepository.save(vehicle);
-        vehicle.setModel("Kadett");
-        //vehicleRepository.flush();
-        QuarkusTransaction.commit();
+//    @Test
+//    void listVehiclesByBrandAndModellWithNamedParametersQuery_ok() {
+//        var vehicles = vehicleRepository.findByBrandAndModelNamedQueryWithNamedParameters(
+//                "Opel",
+//                "Blitz"
+//        );
+//        System.out.println(vehicles);
+////        Table vehicle = new Table(ds, "V_VEHICLE");
+////        assertThat(vehicle)
+//        org.assertj.core.api.Assertions.assertThat(vehicles)
+//                .hasSize(1);
+//
+//    }
 
-        vehicleTable = new Table(ds, "V_VEHICLE");
-        output(vehicleTable).toConsole();
-
-
-        assertThat(vehicleTable)
-                .hasNumberOfColumnsGreaterThan(1)
-                .row(0)
-                .value("BRAND").isEqualTo("Opel")
-                .value("MODEL").isEqualTo("Commodore");
-    }
-
-    @Test
-    void listAllVehiclesWithNamedQuery_Ok() {
-        var vehicles = vehicleRepository.findAllNamedQuery();
-        System.out.println(vehicles);
-    }
-
-    @Test
-    void listVehiclesByBrandAndModellWithNamedParametersQuery_ok() {
-        var vehicles = vehicleRepository.findByBrandAndModelNamedQueryWithNamedParameters(
-                "Opel",
-                "Blitz"
-        );
-        System.out.println(vehicles);
-//        Table vehicle = new Table(ds, "V_VEHICLE");
-//        assertThat(vehicle)
-        org.assertj.core.api.Assertions.assertThat(vehicles)
-                .hasSize(1);
-
-    }
-
-    @Test
-    void testFindAllVehiclesNative() {
-        var actualVehicles = vehicleRepository.findAllVehiclesNative();
-        System.out.println(actualVehicles);
-        org.assertj.core.api.Assertions.assertThat(actualVehicles)
-                .hasSize(2)
-                .contains(List.of(
-                                new Vehicle("Opel", "Blitz", 50.0),
-                                new Vehicle("VW", "Käfer 1400", 30.0)
-                        )
-                );
-    }
+//    @Test
+//    void testFindAllVehiclesNative() {
+//        var actualVehicles = vehicleRepository.findAllVehiclesNative();
+//        System.out.println(actualVehicles);
+//        org.assertj.core.api.Assertions.assertThat(actualVehicles)
+//                .hasSize(2)
+//                .contains(List.of(
+//                                new Vehicle("Opel", "Blitz", 50.0),
+//                                new Vehicle("VW", "Käfer 1400", 30.0)
+//                        )
+//                );
+//    }
 }

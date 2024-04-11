@@ -1,8 +1,9 @@
 package at.ac.htl.myfirstapp.model;
 
-public record Model(
-        String greeting
-) {
+public class Model {
+    public String greeting = "am Anfang";
 
-
+    public Model(String greeting) {
+        this.greeting = greeting;
+    }
 }

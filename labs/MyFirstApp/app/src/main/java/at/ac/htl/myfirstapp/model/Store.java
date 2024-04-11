@@ -1,6 +1,8 @@
 package at.ac.htl.myfirstapp.model;
 
 
+import java.util.function.Consumer;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -15,7 +17,15 @@ public class Store {
     }
 
     public BehaviorSubject<Model> subject;
-    public String greeting = "Hello World";
 
+    public void set(Consumer<Model> recipe) {
+        var mapper = new ModelMapper<Model>(Model.class);
+        var nextModel = mapper.clone(subject.getValue()); // deep-clone
+        recipe.accept(nextModel); // ändert das model
+        subject.onNext(nextModel);
 
+        // Typescript version:
+        // const nextModel = produce(store.getValue(), recipe)
+        // store.next(nextModel)
+    }
 }
