@@ -2,6 +2,7 @@ package at.htlleonding.vehicle.boundary;
 
 import at.htlleonding.vehicle.control.VehicleRepository;
 import at.htlleonding.vehicle.entity.Vehicle;
+import at.htlleonding.vehicle.entity.VehicleDto;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -13,6 +14,7 @@ import jakarta.ws.rs.core.UriInfo;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Path("/vehicle")
@@ -33,8 +35,32 @@ public class VehicleResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Vehicle> findAll() {
-        return vehicleRepository.listAll();
+    public List<VehicleDto> findAll() {
+        //var comparator = new VehicleComparator();
+
+        return vehicleRepository
+                .listAll()
+                .stream()
+                .map(Vehicle::toDto)
+                .sorted((l, r) -> l.brand().compareTo(r.brand()))
+                .toList();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/find/{brand}")
+    public Response findFirstOfBrand(@PathParam("brand") String brand) {
+        var optionalCar =  vehicleRepository
+                .listAll()
+                .stream()
+                .filter(v -> v.getBrand().equalsIgnoreCase(brand))
+                .findFirst();
+
+        var response = optionalCar.isPresent() ?
+                Response.ok(optionalCar.get().toDto()) :
+                Response.status(Response.Status.NOT_FOUND);
+
+        return response.build();
     }
 
     @GET
@@ -75,4 +101,10 @@ public class VehicleResource {
                 .build();
     }
 
+}
+
+class VehicleComparator {
+    public int compare(VehicleDto v1, VehicleDto v2) {
+        return v1.brand().compareTo(v2.brand());
+    }
 }
