@@ -1212,4 +1212,32 @@ npm start
 npx ng g c components/logger
 ----
 
+== 2024-04-15 Bean Validation
+
+* https://cheatsheetseries.owasp.org/cheatsheets/Bean_Validation_Cheat_Sheet.html[Bean Validation Cheat Sheet^]
+* https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#preface[Hibernate Validator 8.0.1.Final - Jakarta Bean Validation Reference Implementation: Reference Guide^]
+* https://quarkus.io/guides/validation[Validation with Hibernate Validator^]
+* https://www.baeldung.com/java-validation[Java Bean Validation Basics^]
+
+image::bean-validation.png[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
