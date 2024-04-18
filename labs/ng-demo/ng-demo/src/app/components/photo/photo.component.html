@@ -1,0 +1,9 @@
+<ul>
+  @for (photo of store.value.photos; track store.value.photos) {
+    <li>
+      {{photo.title}}
+    </li>
+  } @empty {
+    <li>Keine Bücher verfügbar!</li>
+  }
+</ul>

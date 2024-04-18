@@ -18,5 +18,9 @@ export class LoggerComponent implements OnInit {
         distinctUntilChanged())
       .subscribe(name =>
         console.log("name changed ", name))
+      this.store.pipe(map(model => model.photos),
+        distinctUntilChanged())
+        .subscribe(photos => console.log("Photos loaded ...", photos)
+      )
   }
 }
