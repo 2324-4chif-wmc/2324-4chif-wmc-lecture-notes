@@ -1223,11 +1223,18 @@ image::bean-validation.png[]
 
 
 
+== 2024-04-18
 
 
+https://pagespeed.web.dev/
+
+* Für Bilder nicht img verwenden sondern picture!
+
+** https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture
 
 
-
+* JS Modules für echte Parallelität beim LAden eine HTML Seite
+** https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
 
 
