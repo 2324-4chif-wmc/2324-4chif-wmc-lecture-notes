@@ -2,6 +2,7 @@
   @for (photo of store.value.photos; track store.value.photos) {
     <li>
       {{photo.title}}
+      <img src="{{ photo.url }}" alt="{{ photo.title }}">
     </li>
   } @empty {
     <li>Keine Bücher verfügbar!</li>
