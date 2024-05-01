@@ -6,7 +6,6 @@ export interface Model {
   readonly name: string
   readonly email: string
   readonly photos: Photo[]
-
 }
 
 const initialState: Model = {

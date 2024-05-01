@@ -1,14 +1,20 @@
-import {Component, inject} from '@angular/core';
-import {PhotoService} from "../../services/photo.service";
-import {StoreService} from "../../services/store.service";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Photo} from "../../model";
 
 @Component({
   selector: 'app-photo',
   standalone: true,
   imports: [],
-  templateUrl: './photo.component.html',
+  templateUrl:  './photo.component.html',
   styleUrl: './photo.component.css'
 })
 export class PhotoComponent {
-  store = inject(StoreService).store
+  @Input() photo: Photo = {} as Photo;
+  @Output() photoClicked = new EventEmitter<number>();
+
+  photoClick(value: number) {
+    this.photoClicked.emit(value);
+  }
+
+  protected readonly toString = toString;
 }
