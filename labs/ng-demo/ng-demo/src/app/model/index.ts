@@ -1,2 +1,2 @@
-export {store} from "./model"
+export {store, Model, set} from "./model"
 export {Photo} from "./photo"

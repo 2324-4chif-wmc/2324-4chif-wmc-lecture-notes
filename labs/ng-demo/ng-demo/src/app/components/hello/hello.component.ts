@@ -1,6 +1,6 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {StoreService} from "../../services/store.service";
-import {produce} from "immer";
+import {set} from "../../model";
 
 @Component({
   selector: 'app-hello',
@@ -13,17 +13,15 @@ export class HelloComponent {
 
   store = inject(StoreService).store
 
-
-
   onEmailChanged(value: string) {
-    /* set(model => {
+    set(model => {
       model.email = value
-    }) */
+    })
   }
 
   onNameChanged(value: string) {
-    /* set(model => {
+    set(model => {
       model.name = value
-    }) */
+    })
   }
 }

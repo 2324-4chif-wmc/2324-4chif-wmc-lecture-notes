@@ -1,7 +1,6 @@
-import {Component, effect, inject, Injector, OnInit, runInInjectionContext} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {StoreService} from "../../services/store.service";
 import {distinctUntilChanged, map} from "rxjs";
-import {toObservable} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-logger',
@@ -13,20 +12,8 @@ import {toObservable} from "@angular/core/rxjs-interop";
 export class LoggerComponent implements OnInit {
   store = inject(StoreService).store
 
-  constructor() {
-    effect(() => {
-      console.log("name changed ", this.store.name())
-    })
-    effect(() => {
-      console.log("Photos loaded ...", this.store.photos())
-    });
-
-    effect(() => {
-      console.log("Email changed ", this.store.email())
-    });
-  }
   ngOnInit() {
-    /* this.store
+    this.store
       .pipe(map(model => model.name),
         distinctUntilChanged())
       .subscribe(name =>
@@ -34,6 +21,6 @@ export class LoggerComponent implements OnInit {
       this.store.pipe(map(model => model.photos),
         distinctUntilChanged())
         .subscribe(photos => console.log("Photos loaded ...", photos)
-      ) */
+        )
   }
 }
