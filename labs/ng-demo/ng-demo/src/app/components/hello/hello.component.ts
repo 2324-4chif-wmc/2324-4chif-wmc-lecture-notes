@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {StoreService} from "../../services/store.service";
 import {produce} from "immer";
 import {set} from "../../model";
@@ -12,17 +12,21 @@ import {set} from "../../model";
 })
 export class HelloComponent {
 
-  store = inject(StoreService).store
+  // store = inject(StoreService).store
+
+  readonly nameSignal = signal("");
+  readonly emailSignal = signal("")
+
 
   onEmailChanged(value: string) {
-    set(model => {
+    /* set(model => {
       model.email = value
-    })
+    }) */
   }
 
   onNameChanged(value: string) {
-    set(model => {
+    /* set(model => {
       model.name = value
-    })
+    }) */
   }
 }

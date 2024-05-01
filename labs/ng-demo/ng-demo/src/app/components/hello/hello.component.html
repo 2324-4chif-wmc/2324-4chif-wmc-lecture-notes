@@ -1,4 +1,4 @@
-<p>hello {{ store.value.name }} {{ store.value.email }}!</p>
+<p>hello {{ nameSignal() }} {{ emailSignal() }}!</p>
 
 <form>
   <fieldset>
@@ -8,8 +8,8 @@
         #name
         placeholder="Name"
         autocomplete="name"
-        value="{{ store.value.name }}"
-        (keyup)="onNameChanged(name.value)"
+        value="{{ nameSignal() }}"
+        (keyup)="nameSignal.set(name.value)"
       />
     </label>
     <label>
@@ -19,8 +19,8 @@
         type="email"
         placeholder="Email"
         autocomplete="email"
-        value="{{ store.value.email }}"
-        (keyup)="onEmailChanged(email.value)"
+        value="{{ emailSignal()}}"
+        (keyup)="emailSignal.set(email.value)"
       />
     </label>
   </fieldset>
