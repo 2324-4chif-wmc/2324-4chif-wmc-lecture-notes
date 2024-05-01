@@ -1,0 +1,11 @@
+<h4>Photos clicked: {{clickCount}}</h4>
+
+<ul>
+  @for (photo of store.photos(); track store.photos()) {
+    <li>
+      <app-photo [photo]="photo" (photoClicked)="addClickCount()" />
+    </li>
+  } @empty {
+    <li>Keine Photos verfügbar!</li>
+  }
+</ul>

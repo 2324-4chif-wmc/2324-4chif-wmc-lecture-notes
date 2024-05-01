@@ -1,0 +1,32 @@
+<p>hello {{ this.store.name() }} {{ this.store.email() }}!</p>
+
+<form>
+  <fieldset>
+    <label>
+      Name
+      <input
+        #name
+        placeholder="Name"
+        autocomplete="name"
+        value="{{ this.store.name() }}"
+        (keyup)="this.store.name.set(name.value)"
+      />
+    </label>
+    <label>
+      Email
+      <input
+        #email
+        type="email"
+        placeholder="Email"
+        autocomplete="email"
+        value="{{ this.store.email() }}"
+        (keyup)="this.store.email.set(email.value)"
+      />
+    </label>
+  </fieldset>
+
+  <input
+    type="submit"
+    value="Subscribe"
+  />
+</form>

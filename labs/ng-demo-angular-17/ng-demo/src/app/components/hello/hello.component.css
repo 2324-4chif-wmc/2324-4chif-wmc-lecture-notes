@@ -1,0 +1,5 @@
+input:invalid {
+  color: red;
+  box-shadow: red 2px 2px 2px 2px;
+  border: red 2px;
+}
