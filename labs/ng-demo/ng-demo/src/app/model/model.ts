@@ -1,21 +1,18 @@
-import {BehaviorSubject} from "rxjs";
-import {Draft, produce} from "immer";
 import {Photo} from "./photo";
+import {signal, WritableSignal} from "@angular/core";
 
 export interface Model {
-  readonly name: string
-  readonly email: string
-  readonly photos: Photo[]
+  readonly name: WritableSignal<string>
+  readonly email: WritableSignal<string>
+  readonly photos: WritableSignal<Photo[]>
 }
 
 const initialState: Model = {
-  name: "Chris",
-  email: "chris@example.com",
-  photos: []
+  name: signal("Chris"),
+  email: signal("chris@example.com"),
+  photos: signal([]),
 }
-export const store = new BehaviorSubject<Model>(initialState)
+//export const store = new BehaviorSubject<Model>(initialState)
+export const store = initialState;
 
-export function set(recipe: (model: Draft<Model>) => void) {
-  const nextModel = produce(store.getValue(), recipe)
-  store.next(nextModel)
-}
+
