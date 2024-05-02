@@ -1244,7 +1244,10 @@ https://pagespeed.web.dev/
 * Android Demo begonnen
 
 
+== 2024-05-02
 
+* Android Todo App
+* mvvm
 
 
 

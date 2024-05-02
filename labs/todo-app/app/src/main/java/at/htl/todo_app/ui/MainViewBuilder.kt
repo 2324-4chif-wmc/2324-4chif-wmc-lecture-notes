@@ -9,11 +9,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.State
+import androidx.compose.runtime.rxjava3.subscribeAsState
+import at.htl.todo_app.model.Model
+import at.htl.todo_app.model.Store
 import at.htl.todo_app.ui.theme.TodoappTheme
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-class MainViewBuilder @Inject constructor() {
+@ActivityScoped
+class MainViewBuilder {
 
+    val store: Store
+
+    @Inject
+    constructor(store: Store) {
+        this.store = store
+    }
 
     fun setContentview(activity: ComponentActivity){
         activity.setContent {
@@ -23,7 +35,8 @@ class MainViewBuilder @Inject constructor() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("4chif")
+                    val state = store.subject.subscribeAsState(initial = Model())
+                    Greeting(state)
                 }
             }
         }
@@ -32,9 +45,9 @@ class MainViewBuilder @Inject constructor() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(state: State<Model>, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "Hello ${state.value.name} ${state.value.todos.size}!",
         modifier = modifier
     )
 }
@@ -43,6 +56,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     TodoappTheme {
-        Greeting("4chif")
+        //Greeting("4chif")
     }
 }
