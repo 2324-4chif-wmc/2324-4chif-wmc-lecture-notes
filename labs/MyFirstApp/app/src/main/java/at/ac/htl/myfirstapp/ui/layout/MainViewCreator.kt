@@ -27,6 +27,7 @@ val TAG = MainView::class.java.simpleName
 @ActivityScoped
 class MainView {
     val store: Store
+
     @Inject
     constructor(store: Store) {
         this.store = store

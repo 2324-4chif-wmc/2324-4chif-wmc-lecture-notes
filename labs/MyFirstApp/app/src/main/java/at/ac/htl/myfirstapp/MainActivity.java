@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 import at.ac.htl.myfirstapp.model.Model;
 import at.ac.htl.myfirstapp.model.Store;
-import at.ac.htl.myfirstapp.ui.layout.MainViewCreator;
 import at.ac.htl.ui.layout.MainView;
 import dagger.hilt.android.AndroidEntryPoint;
 

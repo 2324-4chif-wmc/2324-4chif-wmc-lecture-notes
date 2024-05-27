@@ -13,6 +13,7 @@ public class ModelMapper<T> {
     public ModelMapper(Class<? extends T> clazz) {
         this.clazz = clazz;
     }
+
     public byte[] toResource(T model) {
         try {
             return mapper.writeValueAsBytes(model);
