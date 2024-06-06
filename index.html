@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <link rel="icon" type="image/png" href="themes/favicon.png">
 <title>23/24 - 4chif - wmc - Lecture Notes</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -676,6 +676,8 @@ pre.rouge .gs {
 <li><a href="#_2024_04_18">29. 2024-04-18</a></li>
 <li><a href="#_2024_04_25">30. 2024-04-25</a></li>
 <li><a href="#_2024_05_02">31. 2024-05-02</a></li>
+<li><a href="#_2024_06_06_keycloak">32. 2024-06-06 Keycloak</a></li>
+<li><a href="#_2024_06_06_mvvm_android">33. 2024-06-06 MVVM Android</a></li>
 </ul>
 </div>
 </div>
@@ -3018,10 +3020,200 @@ npx ng g c components/logger</pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2024_06_06_keycloak"><a class="anchor" href="#_2024_06_06_keycloak"></a>32. 2024-06-06 Keycloak</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>IAM - Identity and Access Management</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Authentification (Wer bin ich?)</p>
+</li>
+<li>
+<p>Authorization (Was darf ich?)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/rollenkonzept.png" alt="rollenkonzept">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternativen zu Keycloak</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Authentik</p>
+</li>
+<li>
+<p>Authelia</p>
+</li>
+<li>
+<p>Auth0 (kommerziell)</p>
+</li>
+<li>
+<p>Okta (kommerziell)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Hosting-Varianten von Keycloak</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Hosting on-premise</p>
+</li>
+<li>
+<p>für jedes deployment (k8s) einen eigenen keycloak Server</p>
+</li>
+<li>
+<p>externes Hosting</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Quellen</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.youtube.com/watch?v=6ye4lP9EA2Y" class="bare">https://www.youtube.com/watch?v=6ye4lP9EA2Y</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Beispielsprojekt: /labs/keycloak-demo</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">docker-compose.yaml</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">services</span><span class="pi">:</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">postgres_keycloak</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">postgres:15.3</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./db-data:/var/lib/postgresql/data/</span>
+      <span class="pi">-</span> <span class="s">./sql:/docker-entrypoint-initdb.d/:ro</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./keycloak-postgres.env</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5432:5432"</span>
+  <span class="na">pgadmin</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">pgadmin_keycloak</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">dpage/pgadmin4:7.5</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./keycloak-postgres.env</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5050:80"</span>
+
+  <span class="na">keycloak</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">keycloak</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">quay.io/keycloak/keycloak:24.0.4</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">command</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">start-dev</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">postgres"</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./keycloak-postgres.env</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">127.0.0.1:8090:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">127.0.0.1:8787:8787"</span> <span class="c1"># debug port</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./imports:/opt/jboss/keycloak/imports</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">keycloak-postgres.env</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="properties"><span class="c"># keycloak
+</span><span class="py">KEYCLOAK_ADMIN</span><span class="p">=</span><span class="s">admin</span>
+<span class="py">KEYCLOAK_ADMIN_PASSWORD</span><span class="p">=</span><span class="s">passme</span>
+<span class="py">KC_DB_PASSWORD</span><span class="p">=</span><span class="s">passme # should be same as POSTGRES_PASSWORD</span>
+<span class="c">#KEYCLOAK_IMPORT=/opt/jboss/keycloak/imports/quarkus-realm.json
+</span>
+<span class="c"># postgres
+</span><span class="py">POSTGRES_PASSWORD</span><span class="p">=</span><span class="s">passme</span>
+
+<span class="c"># postgres-pgadmin
+</span><span class="py">PGADMIN_DEFAULT_EMAIL</span><span class="p">=</span><span class="s">x.y@htl-leonding.ac.at</span>
+<span class="py">PGADMIN_DEFAULT_PASSWORD</span><span class="p">=</span><span class="s">passme</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2024_06_06_mvvm_android"><a class="anchor" href="#_2024_06_06_mvvm_android"></a>33. 2024-06-06 MVVM Android</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/mvvm.png" alt="mvvm">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://medium.com/sahibinden-technology/package-by-layer-vs-package-by-feature-7e89cde2ae3a" target="_blank" rel="noopener">Package by Layer vs Package by Feature</a></p>
+</li>
+<li>
+<p><a href="https://medium.com/androiddevelopers/under-the-hood-of-jetpack-compose-part-2-of-2-37b2c20c6cdd" target="_blank" rel="noopener">Under the hood of Jetpack Compose — part 2 of 2</a></p>
+</li>
+<li>
+<p>Anmerkungen zur <a href="https://github.com/caberger/android" target="_blank" rel="noopener">Prof. Abergers Android-App</a></p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Einführung des MVVM - Design Patterns, ein ViewModel pro View. Damit das verständlich wird vorher unbedingt die ersten 17 Minuten von <a href="https://www.youtube.com/watch?v=W1ymVx6dmvc" class="bare">https://www.youtube.com/watch?v=W1ymVx6dmvc</a> ansehen. Hierbei im Kopf "Swift" durch „Java" ersetzen und "SwiftUI" durch "Jetpack Compose".</p>
+</li>
+<li>
+<p>Read Only State: In den ViewModels (Todo, Home, TabScreen) sind die Models jetzt Java Records, also readonly, damit sind die 3 Design Prinzipien OK (<a href="https://redux.js.org/understanding/thinking-in-redux/three-principles" class="bare">https://redux.js.org/understanding/thinking-in-redux/three-principles</a>)</p>
+</li>
+<li>
+<p>Es gibt jetzt eine saubere Preview - Architektur für alle Views und das obwohl alles in Java und nicht in Kolin geschrieben ist (mit Ausnahme der Jetpack @Composables).</p>
+</li>
+<li>
+<p>Verbesserungen bei der Android - Implementierung (util Package) für:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>RestEasy Client f. Android,</p>
+</li>
+<li>
+<p>Microprofile config (=application.properties f. Android),</p>
+</li>
+<li>
+<p>Jakarta Dependency Injection (@Inject für Android) und</p>
+</li>
+<li>
+<p>RxJava (<a href="https://rxmarbles.com" class="bare">https://rxmarbles.com</a> für Android).</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-02 10:43:16 UTC
+Last updated 2024-06-06 10:37:55 UTC
 </div>
 </div>
 </body>
