@@ -678,6 +678,11 @@ pre.rouge .gs {
 <li><a href="#_2024_05_02">31. 2024-05-02</a></li>
 <li><a href="#_2024_06_06_keycloak">32. 2024-06-06 Keycloak</a></li>
 <li><a href="#_2024_06_06_mvvm_android">33. 2024-06-06 MVVM Android</a></li>
+<li><a href="#_2024_06_17">34. 2024-06-17</a>
+<ul class="sectlevel2">
+<li><a href="#_lokaler_keycloak">34.1. Lokaler Keycloak</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -3210,10 +3215,74 @@ npx ng g c components/logger</pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_2024_06_17"><a class="anchor" href="#_2024_06_17"></a>34. 2024-06-17</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_lokaler_keycloak"><a class="anchor" href="#_lokaler_keycloak"></a>34.1. Lokaler Keycloak</h3>
+<div class="listingblock">
+<div class="title">docker-compose.yaml</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="yaml"><span class="na">services</span><span class="pi">:</span>
+  <span class="na">postgres</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">postgres_keycloak</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">postgres:15.3</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./db-data:/var/lib/postgresql/data/</span>
+      <span class="pi">-</span> <span class="s">./sql:/docker-entrypoint-initdb.d/:ro</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./keycloak-postgres.env</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5432:5432"</span>
+  <span class="na">pgadmin</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">pgadmin_keycloak</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">dpage/pgadmin4:7.5</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./keycloak-postgres.env</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">5050:80"</span>
+
+  <span class="na">keycloak</span><span class="pi">:</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">keycloak</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">quay.io/keycloak/keycloak:25.0.0</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">command</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">start-dev</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">postgres"</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./keycloak-postgres.env</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">127.0.0.1:9000:8080"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">127.0.0.1:8787:8787"</span> <span class="c1"># debug port</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./imports:/opt/jboss/keycloak/imports</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">keycloak-postgres.env</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="properties"><span class="c"># keycloak
+</span><span class="py">KEYCLOAK_ADMIN</span><span class="p">=</span><span class="s">admin</span>
+<span class="py">KEYCLOAK_ADMIN_PASSWORD</span><span class="p">=</span><span class="s">passme</span>
+<span class="py">KC_DB_PASSWORD</span><span class="p">=</span><span class="s">passme # should be same as POSTGRES_PASSWORD</span>
+<span class="c">#KEYCLOAK_IMPORT=/opt/jboss/keycloak/imports/quarkus-realm.json
+</span>
+<span class="c"># postgres
+</span><span class="py">POSTGRES_PASSWORD</span><span class="p">=</span><span class="s">passme</span>
+
+<span class="c"># postgres-pgadmin
+</span><span class="py">PGADMIN_DEFAULT_EMAIL</span><span class="p">=</span><span class="s">x.y@htl-leonding.ac.at</span>
+<span class="py">PGADMIN_DEFAULT_PASSWORD</span><span class="p">=</span><span class="s">passme</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-06 10:37:55 UTC
+Last updated 2024-06-17 09:30:40 UTC
 </div>
 </div>
 </body>
